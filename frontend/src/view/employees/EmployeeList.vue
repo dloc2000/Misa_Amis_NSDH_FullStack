@@ -3,7 +3,11 @@
     <div class="main__page">
       <div class="page__header">
         <div class="page__header-title">Nhân viên</div>
-        <button id="btnAdd" class="page__header--button button1" @click="clickShowFormEmployee">
+        <button
+          id="btnAdd"
+          class="page__header--button button1"
+          @click="clickShowFormEmployee"
+        >
           Thêm mới nhân viên
         </button>
       </div>
@@ -15,7 +19,7 @@
               class="page__toolbar--input input input-placehoder__italic"
               placeholder="Tìm theo mã, tên nhân viên"
             />
-            <button id="btnReload" class="page__toolbar--reload"></button>
+            <button id="btnReload" class="page__toolbar--reload" @click="clickReloadPage"></button>
             <div>
               <div class="input__icon-right"></div>
             </div>
@@ -113,14 +117,20 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(emp,index) in employees" :key="emp.EmployeeId" :class="{'row--selected': index === indexRow}" @click="clickSelectedRow(index)">
+                  <tr
+                    v-for="(emp, index) in employees"
+                    :key="emp.EmployeeId"
+                    :class="{ 'row--selected': index === indexRow }"
+                    @click="clickSelectedRow(index)"
+                    @dblclick="rowDoubleClick(emp)"
+                  >
                     <td><input type="checkbox" /></td>
                     <td>{{ emp.EmployeeCode }}</td>
                     <td>{{ emp.FullName }}</td>
                     <td>{{ emp.Gender }}</td>
                     <td></td>
                     <td></td>
-                    <td></td>
+                    <td>{{ emp.PhoneNumber }}</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -197,7 +207,11 @@
         </div>
       </div>
     </div>
-    <EmployeeDetail :isShowFormParent="isShowForm" @hide-form="closeFormEmployee"/>
+    <EmployeeDetail
+      v-if="isShowForm"
+      @hide-form="closeFormEmployee"
+      :employeeSelected="employeeSelected"
+    />
     <MLoading v-if="isLoading" />
   </div>
 </template>
@@ -208,40 +222,57 @@ import MLoading from "@/components/base/loading/MLoading.vue";
 export default {
   name: "EmployeeList",
   created() {
-    //Loading dữ liệu
-    this.isLoading = true;
-    fetch("https://cukcuk.manhnv.net/api/v1/Employees", { methods: "GET" })
-      .then((res) => res.json())
-      .then((data) => {
-        this.employees = data;
-        this.isLoading = false;
-      })
-      .catch((error) => {
-        console.log(error);
-        this.isLoading = false;
-      });
+    this.loadData();
   },
-  props: {},
+  props: {
+    
+  },
   methods: {
+    // click reload page
+    clickReloadPage() {
+       this.loadData();
+    },
     // click chọn hàng của table
     clickSelectedRow(index) {
       this.indexRow = index;
     },
     // click "Thêm nhân viên" và hiện form
     clickShowFormEmployee() {
-        this.isShowForm = true;
+      this.isShowForm = true;
+      this.employeeSelected ={};
     },
-    // Đóng form nhân viên 
+    // Đóng form nhân viên
     closeFormEmployee() {
-        this.isShowForm = false;
-    }
-   },
+      this.isShowForm = false;
+    },
+    // Double click row sẽ hiện form sửa
+    rowDoubleClick(emp) {
+      this.employeeSelected = emp;
+      this.isShowForm = true;
+    },
+    // Load data lên table
+    loadData() {
+      //Loading dữ liệu
+      this.isLoading = true;
+      fetch("https://cukcuk.manhnv.net/api/v1/Employees", { methods: "GET" })
+        .then((res) => res.json())
+        .then((data) => {
+          this.employees = data;
+          this.isLoading = false;
+        })
+        .catch((error) => {
+          console.log(error);
+          this.isLoading = false;
+        });
+    },
+  },
   data() {
     return {
       employees: [],
       isLoading: false,
       indexRow: undefined,
-      isShowForm: false
+      isShowForm: false,
+      employeeSelected: {},
     };
   },
   components: { EmployeeDetail, MLoading },

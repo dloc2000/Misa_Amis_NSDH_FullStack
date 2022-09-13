@@ -1,5 +1,5 @@
 <template>
-  <div tabindex="0" id="formEmployee" class="dialog" v-show="isShowFormParent" @keyup.esc.exact="clickHideFormEmployee">
+  <div tabindex="0" id="formEmployee" class="dialog"  @keyup.esc.exact="clickHideFormEmployee">
     <div class="dialog__content">
       <div class="container__form">
         <div class="container__form-header">
@@ -33,7 +33,8 @@
                     type="text"
                     class="input"
                     prop-name="EmployeeCode"
-                    empty-value
+                    :value="employee.EmployeeCode"
+                    ref="inputFocus"
                   />
                 </div>
                 <div class="group__input--title">
@@ -46,7 +47,7 @@
                     class="input"
                     id="txtFullName"
                     prop-name="FullName"
-                    empty-value
+                    :value="employee.FullName"
                   />
                 </div>
               </div>
@@ -76,6 +77,7 @@
                     class="input input-full-width"
                     id="txtPosition"
                     prop-name="PositionName"
+                    :value="employee.PositionName"
                   />
                 </div>
               </div>
@@ -106,7 +108,7 @@
               <div class="right-2">
                 <div class="group__input--title">
                   <div class="input__title">Số CMND</div>
-                  <input type="text" class="input" />
+                  <input type="text" class="input" :value="employee.PhoneNumber"/>
                 </div>
                 <div class="group__input--title">
                   <div class="input__title">Ngày cấp</div>
@@ -164,7 +166,7 @@
             <button class="button2 button__cancel">Hủy</button>
           </div>
           <div class="group__button-right">
-            <button id="btnSave" class="button2 button__save">Cất</button>
+            <button id="btnSave" class="button2 button__save" @click="inputFocuss">Cất</button>
             <button id="btnSaveAdd" class="button1 button__save-add">Cất và thêm</button>
           </div>
         </div>
@@ -175,21 +177,35 @@
 </template>
 
 <script>
+  import ref from 'vue'
+ 
 export default {
   name: "EmployeeDetail",
   props: {
     isShowFormParent: {
        default: false
-    }
+    },
+    employeeSelected: Function,
+  },
+  created() {
+    this.employee = this.employeeSelected
   },
   methods: {
     // Click button close sẽ đóng form
     clickHideFormEmployee() {
       this.$emit("hide-form")
+    },
+    // focus
+    inputFocuss() {
+      this.inputFocus = ref()
+      this.inputFocus.value.focus()
     }
   },
   data() {
-    return {};
+    return {
+      employee: {},
+      inputFocus: undefined
+    };
   },
 };
 </script>
