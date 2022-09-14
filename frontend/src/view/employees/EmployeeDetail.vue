@@ -166,7 +166,7 @@
             <button class="button2 button__cancel">Hủy</button>
           </div>
           <div class="group__button-right">
-            <button id="btnSave" class="button2 button__save" @click="inputFocuss">Cất</button>
+            <button id="btnSave" class="button2 button__save">Cất</button>
             <button id="btnSaveAdd" class="button1 button__save-add">Cất và thêm</button>
           </div>
         </div>
@@ -177,7 +177,7 @@
 </template>
 
 <script>
-  import ref from 'vue'
+  // import ref from 'vue'
  
 export default {
   name: "EmployeeDetail",
@@ -186,20 +186,21 @@ export default {
        default: false
     },
     employeeSelected: Function,
+    
   },
   created() {
     this.employee = this.employeeSelected
+  },
+  mounted() {
+    // focus ô input đầu tiên
+    this.$refs.inputFocus.focus()
   },
   methods: {
     // Click button close sẽ đóng form
     clickHideFormEmployee() {
       this.$emit("hide-form")
     },
-    // focus
-    inputFocuss() {
-      this.inputFocus = ref()
-      this.inputFocus.value.focus()
-    }
+
   },
   data() {
     return {

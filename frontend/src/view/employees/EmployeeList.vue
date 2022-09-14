@@ -1,24 +1,17 @@
 <template>
-  <div>
+  <div class="tag-as-parent">
     <div class="main__page">
       <div class="page__header">
         <div class="page__header-title">Nhân viên</div>
-        <button
-          id="btnAdd"
-          class="page__header--button button1"
-          @click="clickShowFormEmployee"
-        >
+        <button id="btnAdd" class="page__header--button button1" @click="clickShowFormEmployee">
           Thêm mới nhân viên
         </button>
       </div>
       <div class="page__content">
         <div class="page__group">
           <div class="page__toolbar">
-            <input
-              type="text"
-              class="page__toolbar--input input input-placehoder__italic"
-              placeholder="Tìm theo mã, tên nhân viên"
-            />
+            <input type="text" class="page__toolbar--input input input-placehoder__italic"
+              placeholder="Tìm theo mã, tên nhân viên" />
             <button id="btnReload" class="page__toolbar--reload" @click="clickReloadPage"></button>
             <div>
               <div class="input__icon-right"></div>
@@ -29,101 +22,17 @@
               <table id="tbEmployeeList" class="table">
                 <thead>
                   <tr>
-                    <th
-                      class="text__align--center no_padding"
-                      prop-name="checkbox"
-                      style="min-width: 40px"
-                    >
-                      <input type="checkbox" />
-                    </th>
-                    <th
-                      class="text__align--left"
-                      prop-name="EmployeeCode"
-                      style="min-width: 150px"
-                    >
-                      Mã nhân viên
-                    </th>
-                    <th
-                      class="text__align--left"
-                      prop-name="FullName"
-                      style="min-width: 250px"
-                    >
-                      Tên nhân viên
-                    </th>
-                    <th
-                      class="text__align--left"
-                      prop-name="Gender"
-                      style="min-width: 120px"
-                    >
-                      Giới tính
-                    </th>
-                    <th
-                      class="text__align--center"
-                      prop-name="DateOfBirth"
-                      format-date
-                      style="min-width: 120px"
-                    >
-                      Ngày sinh
-                    </th>
-                    <th
-                      class="text__align--left"
-                      prop-name="IdentityNumber"
-                      style="min-width: 200px"
-                    >
-                      Số CMND
-                    </th>
-                    <th
-                      class="text__align--left"
-                      prop-name="PositionName"
-                      style="min-width: 250px"
-                    >
-                      Chức danh
-                    </th>
-                    <th
-                      class="text__align--left"
-                      prop-name="DepartmentName"
-                      style="min-width: 250px"
-                    >
-                      Tên đơn vị
-                    </th>
-                    <th
-                      class="text__align--left"
-                      prop-name="GenderName"
-                      style="min-width: 150px"
-                    >
-                      Số tài khoản
-                    </th>
-                    <th
-                      class="text__align--left"
-                      prop-name="GenderName"
-                      style="min-width: 250px"
-                    >
-                      Tên ngân hàng
-                    </th>
-                    <th
-                      class="text__align--left"
-                      prop-name="GenderName"
-                      style="min-width: 250px"
-                    >
-                      Chi nhánh TK ngân hàng
-                    </th>
-                    <th
-                      class="text__align--center"
-                      prop-name="options"
-                      style="min-width: 120px"
-                    >
-                      Chức năng
-                    </th>
+                      <th class="text__align--center" style="min-width: 40px">
+                          <input type="checkbox"/>
+                      </th>
+                    <th v-for="propData in propsDataRow" :key="propData.id" :class="propData.class"
+                      :style="propData.style">{{propData.name}}</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    v-for="(emp, index) in employees"
-                    :key="emp.EmployeeId"
-                    :class="{ 'row--selected': index === indexRow }"
-                    @click="clickSelectedRow(index)"
-                    @dblclick="rowDoubleClick(emp)"
-                  >
+                  <tr v-for="(emp, index) in employees" :key="emp.EmployeeId"
+                    :class="{ 'row--selected': index === indexRow }" @click="clickSelectedRow(index)"
+                    @dblclick="rowDoubleClick(emp)">
                     <td><input type="checkbox" /></td>
                     <td>{{ emp.EmployeeCode }}</td>
                     <td>{{ emp.FullName }}</td>
@@ -207,11 +116,7 @@
         </div>
       </div>
     </div>
-    <EmployeeDetail
-      v-if="isShowForm"
-      @hide-form="closeFormEmployee"
-      :employeeSelected="employeeSelected"
-    />
+    <EmployeeDetail v-if="isShowForm" @hide-form="closeFormEmployee" :employeeSelected="employeeSelected" />
     <MLoading v-if="isLoading" />
   </div>
 </template>
@@ -222,15 +127,17 @@ import MLoading from "@/components/base/loading/MLoading.vue";
 export default {
   name: "EmployeeList",
   created() {
-    this.loadData();
+    this.loadData(),
+    this.addCheckbox()
+
   },
   props: {
-    
+
   },
   methods: {
     // click reload page
     clickReloadPage() {
-       this.loadData();
+      this.loadData();
     },
     // click chọn hàng của table
     clickSelectedRow(index) {
@@ -239,7 +146,7 @@ export default {
     // click "Thêm nhân viên" và hiện form
     clickShowFormEmployee() {
       this.isShowForm = true;
-      this.employeeSelected ={};
+      this.employeeSelected = {};
     },
     // Đóng form nhân viên
     closeFormEmployee() {
@@ -249,6 +156,9 @@ export default {
     rowDoubleClick(emp) {
       this.employeeSelected = emp;
       this.isShowForm = true;
+    },
+    addCheckbox() {
+      this.htmlRow.push('</br><input type="checkbox"/>')
     },
     // Load data lên table
     loadData() {
@@ -268,15 +178,96 @@ export default {
   },
   data() {
     return {
+      propsDataRow: [
+        // {
+        //   id: 1,
+        //   class: "text__align--center",
+        //   style: "min-width: 40px",
+        //   name: "",
+
+        // },
+        {
+          id: 2,
+          class: "text__align--left",
+          style: "min-width: 150px",
+          name: "Mã nhân viên"
+        },
+        {
+          id: 3,
+          class: "text__align--left",
+          style: "min-width: 250px",
+          name: "Tên nhân viên"
+        },
+        {
+          id: 4,
+          class: "text__align--left",
+          style: "min-width: 120px",
+          name: "Giới tính"
+        },
+        {
+          id: 5,
+          class: "text__align--center",
+          style: "min-width: 120px",
+          name: "Ngày sinh"
+        },
+        {
+          id: 6,
+          class: "text__align--left",
+          style: "min-width: 200px",
+          name: "Số CMND"
+        },
+        {
+          id: 7,
+          class: "text__align--left",
+          style: "min-width: 250px",
+          name: "Chức danh"
+        },
+        {
+          id: 8,
+          class: "text__align--left",
+          style: "min-width: 250px",
+          name: "Tên đơn vị"
+        },
+        {
+          id: 9,
+          class: "text__align--left",
+          style: "min-width: 150px",
+          name: "Số tài khoản"
+        },
+        {
+          id: 10,
+          class: "text__align--left",
+          style: "min-width: 250px",
+          name: "Tên ngân hàng"
+        },
+        {
+          id: 11,
+          class: "text__align--left",
+          style: "min-width: 250px",
+          name: "Chi nhánh tài khoản ngân hàng"
+        },
+        {
+          id: 12,
+          class: "text__align--center",
+          style: "min-width: 120px",
+          name: "Chức năng"
+        },
+      ],
       employees: [],
       isLoading: false,
       indexRow: undefined,
       isShowForm: false,
       employeeSelected: {},
+      htmlRow: []
     };
   },
   components: { EmployeeDetail, MLoading },
 };
 </script>
 
-<style></style>
+<style>
+.tag-as-parent {
+  width: 100%;
+  height: 100%;
+}
+</style>
