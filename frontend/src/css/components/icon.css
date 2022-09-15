@@ -33,12 +33,20 @@
     background-image: url(../../assets/img/Sprites.64af8f61.svg);
     background-position: -33px -1630px;
 }
-
+.m__icon-dashboard:active {
+    background: url(../../assets/img/Sprites.64af8f61.svg) ;
+    background-position: -33px -1585px;
+	width: 18px;
+	height: 20px;
+}
 .m__icon-cash {
     background-image: url(../../assets/img/Sprites.64af8f61.svg);
-    background-position: -78px -1630px;
+    background-position: -78px -1628px;
 }
-
+.m__icon-cash:active {
+    background: url(../../assets/img/Sprites.64af8f61.svg);
+    background-position: -78px -1588px;
+}
 .m__icon-deposit {
     background-image: url(../../assets/img/Sprites.64af8f61.svg);
     background-position: -427px -1630px;

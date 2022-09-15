@@ -15,7 +15,7 @@ const routers = [
     {path: "/ban-hang"},
     {path: "/quan-ly-hoa-don"},
     {path: "/kho"},
-    {path: "/cong-cu-"},
+    {path: "/cong-cu"},
     {path: "/tai-san-co-dinh"},
     {path: "/tien-luong"},
     {path: "/thue"},

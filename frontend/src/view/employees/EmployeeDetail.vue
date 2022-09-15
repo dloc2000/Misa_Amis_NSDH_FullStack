@@ -1,5 +1,10 @@
 <template>
-  <div tabindex="0" id="formEmployee" class="dialog"  @keyup.esc.exact="clickHideFormEmployee">
+  <div
+    tabindex="0"
+    id="formEmployee"
+    class="dialog"
+    @keyup.esc.exact="clickConfirmHideForm"
+  >
     <div class="dialog__content">
       <div class="container__form">
         <div class="container__form-header">
@@ -16,7 +21,7 @@
           </div>
           <div class="form__popup-close">
             <div class="btn-help m__icon-help"></div>
-            <div class="btn-close m__icon-close" @click="clickHideFormEmployee"></div>
+            <div class="btn-close m__icon-close" @click="clickConfirmHideForm"></div>
           </div>
         </div>
         <div id="formBody" class="container__form-body row-2">
@@ -29,12 +34,11 @@
                     <b style="color: red">*</b>
                   </div>
                   <input
-                    id="txtEmployeeCode"
                     type="text"
                     class="input"
-                    prop-name="EmployeeCode"
-                    :value="employee.EmployeeCode"
+                    v-model="employee.EmployeeCode"
                     ref="inputFocus"
+                    :class="checkBlur(employee.EmployeeCode)"
                   />
                 </div>
                 <div class="group__input--title">
@@ -45,9 +49,8 @@
                   <input
                     type="text"
                     class="input"
-                    id="txtFullName"
-                    prop-name="FullName"
-                    :value="employee.FullName"
+                    v-model="employee.FullName"
+                    :class="checkBlur(employee.FullName)"
                   />
                 </div>
               </div>
@@ -58,7 +61,7 @@
                     <b style="color: red">*</b>
                   </div>
                   <div class="combobox">
-                    <input type="text" class="input" empty-value />
+                    <input type="text" class="input" />
                     <button>
                       <div class="m-arrow-dropdown"></div>
                     </button>
@@ -76,8 +79,7 @@
                     type="text"
                     class="input input-full-width"
                     id="txtPosition"
-                    prop-name="PositionName"
-                    :value="employee.PositionName"
+                    v-model="employee.PositionName"
                   />
                 </div>
               </div>
@@ -86,12 +88,7 @@
               <div class="right-1">
                 <div class="group__input--title">
                   <div class="input__title">Ngày sinh</div>
-                  <input
-                    type="date"
-                    class="input input-full-width"
-                    id="txtBirthday"
-                    prop-name="DateOfBirth"
-                  />
+                  <input type="date" class="input input-full-width" id="txtBirthday" />
                 </div>
                 <div class="group__input--title">
                   <div class="input__title">Giới tính</div>
@@ -108,7 +105,7 @@
               <div class="right-2">
                 <div class="group__input--title">
                   <div class="input__title">Số CMND</div>
-                  <input type="text" class="input" :value="employee.PhoneNumber"/>
+                  <input type="text" class="input" v-model="employee.PhoneNumber" />
                 </div>
                 <div class="group__input--title">
                   <div class="input__title">Ngày cấp</div>
@@ -163,49 +160,101 @@
         <div class="divide"></div>
         <div class="container__form-footer">
           <div class="group__button-left">
-            <button class="button2 button__cancel">Hủy</button>
+            <button class="button2 button__cancel" @click="clickCancel">Hủy</button>
           </div>
           <div class="group__button-right">
-            <button id="btnSave" class="button2 button__save">Cất</button>
-            <button id="btnSaveAdd" class="button1 button__save-add">Cất và thêm</button>
+            <button class="button2 button__save">Cất</button>
+            <button class="button1 button__save-add" @click="clickAddEmployee">
+              Cất và thêm
+            </button>
           </div>
         </div>
       </div>
     </div>
-    <div></div>
   </div>
 </template>
 
 <script>
-  // import ref from 'vue'
- 
+/**
+ * Bảng chi tiết thông tin nhân viên
+ * Author : Locdx 13/09/2022
+ */
+
 export default {
   name: "EmployeeDetail",
   props: {
     isShowFormParent: {
-       default: false
+      default: false,
     },
     employeeSelected: Function,
-    
+    formMode: {
+      type: Number,
+      default: 1,
+    },
   },
   created() {
-    this.employee = this.employeeSelected
+    this.employee = this.employeeSelected;
   },
   mounted() {
     // focus ô input đầu tiên
-    this.$refs.inputFocus.focus()
+    this.$refs.inputFocus.focus();
   },
   methods: {
-    // Click button close sẽ đóng form
-    clickHideFormEmployee() {
-      this.$emit("hide-form")
-    },
+    // Thêm mới nhân viên
+    clickAddEmployee() {
+      
+      let url = "https://cukcuk.manhnv.net/api/v1/Employees";
+      let method = "POST";
+      // validate dữ liệu
 
+      // Cất dữ liệu
+      // Thêm mới - formMode = 1
+
+      // Sửa - formMode = 2
+      if(this.formMode == 2) {
+        method = "PUT"
+        url = url + '/' + `${this.employee.EmployeeId}`
+      }
+      console.log("da click");
+      fetch(url, {
+        method: method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(this.employee),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          alert("thành công", res);
+          this.$emit("hide-form");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    // Click button close sẽ có dialog
+    clickHideForm() {
+      this.$emit("hide-form");
+    },
+    clickConfirmHideForm() {
+      this.$emit("confirm-form");
+    },
+    // Click hủy sẽ đóng form nếu ko có thay đổi
+    clickCancel() {
+      this.$emit("hide-form");
+    },
+    checkBlur(data) {
+      if (data == "" || data == null)
+        return {
+          "input--error": true,
+        };
+      else return "";
+    },
   },
   data() {
     return {
       employee: {},
-      inputFocus: undefined
+      inputFocus: undefined,
     };
   },
 };

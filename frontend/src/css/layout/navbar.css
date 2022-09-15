@@ -34,9 +34,7 @@
 }
 
 .item-selected {
-    background: url('../../assets/img/Sprites.64af8f61.svg') no-repeat -78px -1588px;
-	width: 14px;
-	height: 18px;
+    background: url('../../assets/img/Sprites.64af8f61.svg') no-repeat -78px -1586px;
 }
 .item-pesudo:before {
     content: "";

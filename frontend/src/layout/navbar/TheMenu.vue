@@ -11,7 +11,7 @@
       }"
       @click="clickSelectedMenu(index)"
     >
-      <div class="navbar__icon m-icon-24" :class="menuItem.icon"></div>
+      <div class="navbar__icon m-icon-24" :class="[menuItem.icon, {'item-selected': index == 1}]"></div>
       <div class="navbar__text">{{ menuItem.menu }}</div>
     </router-link>
     <!--  <div class="navbar__item item-pesudo item-active">
@@ -48,49 +48,49 @@ export default {
                     id: 4,
                     menu: "Mua hàng",
                     icon: "m__icon-buy",
-                    path: "/tien-gui",
+                    path: "/mua-hang",
                 },
                 {
                     id: 5,
                     menu: "Bán hàng",
                     icon: "m__icon-sell",
-                    path: "/tien-gui",
+                    path: "/ban-hang",
                 },
                 {
                     id: 6,
                     menu: "Kho",
                     icon: "m__icon-warehouse",
-                    path: "/tien-gui",
+                    path: "/quan-ly-hoa-don",
                 },
                 {
                     id: 7,
                     menu: "Quản lý hóa đơn",
                     icon: "m__icon-bill",
-                    path: "/tien-gui",
+                    path: "/kho",
                 },
                 {
                     id: 8,
                     menu: "Công cụ dụng cụ",
                     icon: "m__icon-tool",
-                    path: "/tien-gui",
+                    path: "/cong-cu",
                 },
                 {
                     id: 9,
                     menu: "Tài sản cố định",
                     icon: "m__icon-defaultassets",
-                    path: "/tien-gui",
+                    path: "/tai-san-co-dinh",
                 },
                 {
                     id: 10,
                     menu: "Lương",
                     icon: "m__icon-salary",
-                    path: "/tien-gui",
+                    path: "/tien-luong",
                 },
                 {
                     id: 11,
                     menu: "Thuế",
                     icon: "m__icon-tax",
-                    path: "/tien-gui",
+                    path: "/thue",
                 },
             ],
             activeIndex: undefined,
