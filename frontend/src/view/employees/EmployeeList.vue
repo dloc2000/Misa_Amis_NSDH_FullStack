@@ -18,6 +18,8 @@
               type="text"
               class="page__toolbar--input input input-placehoder__italic"
               placeholder="Tìm theo mã, tên nhân viên"
+              v-model="this.nameSearch"
+              @change="filterByName"
             />
             <button
               id="btnReload"
@@ -208,6 +210,17 @@ export default {
     clickShowDialog() {
       this.isShowDialog = true;
     },
+    // Lọc dữ liệu
+    filterByName() {
+         setTimeout(() => {
+          HTTP.get(`/employees/filter?employeeFilter=${this.nameSearch}`)
+            .then((res) => {
+                this.employees = [];
+                this.employees = res.data
+            },500)
+         },)
+        // clearTimeout(data);
+    },
     // Load data lên table
     loadData() {
       //Loading dữ liệu
@@ -224,11 +237,12 @@ export default {
       //   });
       HTTP.get(`/employees`)
         .then((reponse) => {
-          this.employees = reponse;
+          this.employees = reponse.data;
           this.isLoading = false;
         })
         .catch((error) => {
           console.log(error);
+          this.loading = false;
         });
     },
   },
@@ -318,6 +332,7 @@ export default {
       htmlRow: [],
       dialogSelected: 1,
       formMode: Number,
+      nameSearch: String
     };
   },
   components: { EmployeeDetail, MLoading, MDialog, MPaging, MCombobox },
