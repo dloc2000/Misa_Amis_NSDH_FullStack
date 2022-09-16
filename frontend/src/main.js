@@ -8,6 +8,7 @@ import EmployeeList from './view/employees/EmployeeList'
 
 //B1: Định nghĩa các router:
 const routers = [
+    { path: '/', component: EmployeeList, alias: '/employees' },
     {path: "/tong-quan",component:OverView},
     {path: "/employees",component:EmployeeList},
     {path: "/tien-gui",component:DepositMoney},

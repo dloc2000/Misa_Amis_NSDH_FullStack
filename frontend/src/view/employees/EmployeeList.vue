@@ -52,7 +52,7 @@
                     :key="emp.EmployeeId"
                     :class="{ 'row--selected': index === indexRow }"
                     @click="clickSelectedRow(index)"
-                    @dblclick="rowDoubleClick(emp)"
+                    @dblclick.stop="rowDoubleClick(emp)"
                   >
                     <td><input type="checkbox" /></td>
                     <td>{{ emp.EmployeeCode }}</td>
@@ -68,22 +68,7 @@
                     <td>
                       <div class="group__title-combobox">
                         <div class="title">Sửa</div>
-                        <div class="combobox">
-                          <button class="m-icon">
-                            <div class="m-arrow-dropdown-blue"></div>
-                          </button>
-                          <div class="combobox__data-under" hidden>
-                            <div class="combobox__item" value="0">Nhân bản</div>
-                            <div
-                              class="combobox__item"
-                              value="1"
-                              @click="clickDeleteEmployee"
-                            >
-                              Xóa
-                            </div>
-                            <div class="combobox__item" value="2">Ngưng sử dụng</div>
-                          </div>
-                        </div>
+                        <MCombobox />
                       </div>
                     </td>
                   </tr>
@@ -121,7 +106,9 @@
           </div>
         </div>
         <div class="page__footer">
-          <div class="page__total-record">Tổng số:<b> 94</b> bản ghi</div>
+          <div class="page__total-record">
+            Tổng số:<b> {{ this.employees.length }}</b> bản ghi
+          </div>
           <div class="page__pagingation">
             <div class="combobox_paging combobox">
               <input type="text" class="input" />
@@ -143,7 +130,7 @@
                 </div>
               </div>
             </div>
-            <MPaging/>
+            <MPaging />
           </div>
         </div>
       </div>
@@ -151,6 +138,7 @@
     <EmployeeDetail
       v-if="isShowForm"
       @hide-form="closeFormEmployeeAndDialog"
+      @hide-form-not-load-data="closeNotLoadData"
       :employeeSelected="employeeSelected"
       @confirm-form="clickShowDialog"
       :formMode="formMode"
@@ -173,6 +161,8 @@ import EmployeeDetail from "./EmployeeDetail.vue";
 import MLoading from "@/components/base/loading/MLoading.vue";
 import MDialog from "@/components/base/dialog/MDialog.vue";
 import MPaging from "@/components/base/paging/MPaging.vue";
+import MCombobox from "@/components/base/combobox/MCombobox.vue";
+import { HTTP } from "../../api/http-common";
 export default {
   name: "EmployeeList",
   created() {
@@ -200,6 +190,11 @@ export default {
       this.isShowDialog = false;
       this.loadData();
     },
+    closeNotLoadData() {
+      this.dialogSelected = 1;
+      this.isShowForm = false;
+      this.isShowDialog = false;
+    },
     // Double click row sẽ hiện form sửa
     rowDoubleClick(emp) {
       this.formMode = 2;
@@ -217,15 +212,23 @@ export default {
     loadData() {
       //Loading dữ liệu
       this.isLoading = true;
-      fetch("https://cukcuk.manhnv.net/api/v1/Employees", { methods: "GET" })
-        .then((res) => res.json())
-        .then((data) => {
-          this.employees = data;
+      // fetch("https://cukcuk.manhnv.net/api/v1/Employees", { methods: "GET" })
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     this.employees = data;
+      //     this.isLoading = false;
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //     this.isLoading = false;
+      //   });
+      HTTP.get(`/employees`)
+        .then((reponse) => {
+          this.employees = reponse;
           this.isLoading = false;
         })
         .catch((error) => {
           console.log(error);
-          this.isLoading = false;
         });
     },
   },
@@ -314,10 +317,10 @@ export default {
       employeeSelected: {},
       htmlRow: [],
       dialogSelected: 1,
-      formMode: Number
+      formMode: Number,
     };
   },
-  components: { EmployeeDetail, MLoading, MDialog, MPaging },
+  components: { EmployeeDetail, MLoading, MDialog, MPaging, MCombobox },
 };
 </script>
 

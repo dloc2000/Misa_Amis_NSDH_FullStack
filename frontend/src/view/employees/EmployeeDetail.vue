@@ -202,7 +202,6 @@ export default {
   methods: {
     // Thêm mới nhân viên
     clickAddEmployee() {
-      
       let url = "https://cukcuk.manhnv.net/api/v1/Employees";
       let method = "POST";
       // validate dữ liệu
@@ -211,9 +210,9 @@ export default {
       // Thêm mới - formMode = 1
 
       // Sửa - formMode = 2
-      if(this.formMode == 2) {
-        method = "PUT"
-        url = url + '/' + `${this.employee.EmployeeId}`
+      if (this.formMode == 2) {
+        method = "PUT";
+        url = url + "/" + `${this.employee.EmployeeId}`;
       }
       console.log("da click");
       fetch(url, {
@@ -241,7 +240,7 @@ export default {
     },
     // Click hủy sẽ đóng form nếu ko có thay đổi
     clickCancel() {
-      this.$emit("hide-form");
+      this.$emit("hide-form-not-load-data");
     },
     checkBlur(data) {
       if (data == "" || data == null)
