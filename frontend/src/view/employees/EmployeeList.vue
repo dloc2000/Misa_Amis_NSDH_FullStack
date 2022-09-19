@@ -147,7 +147,7 @@ import MDialog from "@/components/base/dialog/MDialog.vue";
 import MPaging from "@/components/base/paging/MPaging.vue";
 import MCombobox from "@/components/base/combobox/MCombobox.vue";
 import { HTTP } from "../../api/http-common";
-import MButton from "@/components/base/button/MButton.vue";
+// import MButton from "@/components/base/button/MButton.vue";
 export default {
   name: "EmployeeList",
   created() {
@@ -207,16 +207,7 @@ export default {
     loadData() {
       //Loading dữ liệu
       this.isLoading = true;
-      // fetch("https://cukcuk.manhnv.net/api/v1/Employees", { methods: "GET" })
-      //   .then((res) => res.json())
-      //   .then((data) => {
-      //     this.employees = data;
-      //     this.isLoading = false;
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //     this.isLoading = false;
-      //   });
+      // Call API lấy tất cả các nhân viên = Axios.
       HTTP.get(`/employees`)
         .then((reponse) => {
           this.employees = reponse.data;
@@ -317,7 +308,7 @@ export default {
       nameSearch: String,
     };
   },
-  components: { EmployeeDetail, MLoading, MDialog, MPaging, MCombobox, MButton },
+  components: { EmployeeDetail, MLoading, MDialog, MPaging, MCombobox },
 };
 </script>
 
