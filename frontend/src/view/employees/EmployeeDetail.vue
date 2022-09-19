@@ -160,21 +160,26 @@
         <div class="divide"></div>
         <div class="container__form-footer">
           <div class="group__button-left">
-            <button class="button2 button__cancel" @click="clickCancel">Hủy</button>
+            <MButton :classBtn="'button2'" :text="'Hủy'" @click="clickCancel" />
           </div>
           <div class="group__button-right">
-            <button class="button2 button__save">Cất</button>
-            <button class="button1 button__save-add" @click="clickAddEmployee">
-              Cất và thêm
-            </button>
+            <MButton :classBtn="'button2 button__save'" :text="'Cất'" />
+            <MButton
+              :classBtn="'button1'"
+              :text="'Cất và thêm'"
+              @click="clickAddEmployee"
+            />
           </div>
         </div>
       </div>
     </div>
+    <MDialog v-if="false" />
   </div>
 </template>
 
 <script>
+import MDialog from "@/components/base/dialog/MDialog.vue";
+import MButton from "@/components/base/button/MButton.vue";
 /**
  * Bảng chi tiết thông tin nhân viên
  * Author : Locdx 13/09/2022
@@ -205,10 +210,8 @@ export default {
       let url = "https://cukcuk.manhnv.net/api/v1/Employees";
       let method = "POST";
       // validate dữ liệu
-
       // Cất dữ liệu
       // Thêm mới - formMode = 1
-
       // Sửa - formMode = 2
       if (this.formMode == 2) {
         method = "PUT";
@@ -256,6 +259,7 @@ export default {
       inputFocus: undefined,
     };
   },
+  components: { MDialog, MButton },
 };
 </script>
 

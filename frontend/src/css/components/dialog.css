@@ -8,57 +8,6 @@
     z-index: 1000;
 }
 
-
-.dialog__content {
-    display: flex;
-    position: absolute;
-    flex-direction: column;
-    justify-content: space-between;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 4px;
-    box-sizing: border-box;
-    background-color: #fff;
-    min-width: 400px;
-}
-
-.dialog__header {
-    border-radius: 4px;
-    padding: 24px 24px 0 24px;
-}
-
-.dialog__body {
-    padding: 24px;
-}
-
-.dialog__msg-item {
-    display: flex;
-    align-items: center;
-    background-size: 16px;
-    padding-left: 24px;
-}
-
-.dialog__msg-item~.dialog__msg-item {
-    margin-top: 8px;
-}
-
-.dialog__footer {
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    background-color: #f5f5f5;
-    box-sizing: border-box;
-    padding: 8px 24px;
-    border-radius: 0 0 4px 4px;
-    flex-direction: row-reverse;
-}
-
-.dialog__footer button~button {
-    margin-right: 8px;
-}
-
-
 /* dialog ban co muon xoa hay khong */
 
 .dialog__msg-box {
@@ -86,7 +35,7 @@
     border-bottom: 1px solid #ccc;
 }
 
-.dialog__msg-box .footer {
+.dialog__msg-box .dialog__footer {
     display: flex;
     align-items: center;
     justify-content: space-between;

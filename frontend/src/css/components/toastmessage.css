@@ -30,8 +30,6 @@
     
 }
 
-
-
 .toast__message-left{
     display: flex;
     align-items: center;
@@ -86,8 +84,6 @@
         right: 100%;
     }
 }
-
-
 
 @keyframes toast{
     from  {

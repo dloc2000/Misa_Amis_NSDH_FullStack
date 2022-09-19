@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <div>Đây là tiền mặt</div>
-  </div>
+  <div></div>
 </template>
 
 <script>

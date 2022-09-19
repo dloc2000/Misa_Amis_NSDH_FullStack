@@ -1,27 +1,112 @@
 <template>
-  <div class="combobox">
+  <!-- <div class="combobox">
     <button class="m-icon" @click="clickShowCombobox">
       <div class="m-arrow-dropdown-blue"></div>
     </button>
     <div class="combobox__data-under" v-show="isShow">
-      <div class="combobox__item" value="0">Nhân bản</div>
-      <div class="combobox__item" value="1">Xóa</div>
-      <div class="combobox__item" value="2">Ngưng sử dụng</div>
+      <div class="combobox__item" >Nhân bản</div>
+    </div>
+  </div> -->
+  <div
+    class="combobox"
+    :style="{
+      width: width + 'px',
+    }"
+  >
+    <input type="text" class="input" v-model="valueText" />
+    <button @click.stop="clickShowCombobox">
+      <div class="m-arrow-dropdown"></div>
+    </button>
+    <div class="combobox__data-above" v-if="isShow">
+      <div
+        class="combobox__item item-left"
+        v-for="(item, index) in dataSearch"
+        :key="index"
+        :class="{
+          'combobox__item-selected': itemSelect && itemSelect[fieldKey] == item[fieldKey],
+        }"
+        @click.stop="clickSelectItem(item)"
+      >
+        {{ item[filedName] }}
+      </div>
+      <!-- <div class="combobox__item item-left" value="0">5 bản ghi trên 1 trang</div>
+      <div class="combobox__item item-left combobox__item-selected" value="1">
+        10 bản ghi trên 1 trang
+      </div>
+     
+      <div class="combobox__item item-left" value="3">20 bản ghi trên 1 trang</div> -->
     </div>
   </div>
 </template>
 <script>
 export default {
   name: "MCombobox",
+  props: {
+    width: {
+      Type: [Number, String],
+      default: 200,
+    },
+    // dữ liệu truyền vào combobox
+    data: {
+      Type: Array,
+      default: () => [
+        {
+          ID: 1,
+          Name: "5 bản ghi trên 1 trang",
+        },
+        {
+          ID: 2,
+          Name: "10 bản ghi trên 1 trang",
+        },
+        {
+          ID: 3,
+          Name: "15 bản ghi trên 1 trang",
+        },
+        {
+          ID: 4,
+          Name: "20 bản ghi trên 1 trang",
+        },
+      ],
+    },
+    fieldKey: {
+      Type: String,
+      default: "ID",
+    },
+    filedName: {
+      Type: String,
+      default: "Name",
+    },
+  },
   data() {
     return {
       isShow: false,
+      dataSearch: this.data,
+      itemSelect: null,
+      valueText: {
+        Type: String,
+        default: this.data[0].Name,
+      },
     };
   },
   methods: {
+    // click ra item
     clickShowCombobox() {
       this.isShow = !this.isShow;
+      this.$emit("stop-propagation");
     },
+    // Chọn item combobox
+    clickSelectItem(item) {
+      this.itemSelect = item;
+      this.valueText = item[this.filedName];
+      this.isShow = false;
+    },
+  },
+  watch: {
+    // isShow(newVal, oldVal) {
+    //   if (newVal != oldVal) {
+    //     this.isShow = true;
+    //   }
+    // },
   },
 };
 </script>
@@ -35,6 +120,7 @@ export default {
   box-sizing: border-box;
   display: flex;
 }
+
 .combobox__item {
   height: 40px;
   display: flex;
@@ -64,6 +150,7 @@ export default {
   background-color: #fff;
   max-height: 200px;
 }
+
 .m-arrow-dropdown {
   background-image: url(../../../assets/img/Sprites.64af8f61.svg);
   background-repeat: no-repeat;

@@ -125,9 +125,11 @@
 	height: 36px;
 }
 
-
-
-
+.m__icon-warning-circle {
+    background: url(../../assets/img/Sprites.64af8f61.svg) no-repeat -752px -462px;
+	width: 36px;
+	height: 36px;
+}
 
 
 

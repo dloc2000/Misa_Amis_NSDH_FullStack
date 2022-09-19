@@ -3,13 +3,14 @@
     <div class="main__page">
       <div class="page__header">
         <div class="page__header-title">Nhân viên</div>
-        <button
-          id="btnAdd"
-          class="page__header--button button1"
+        <MButton
+          :classBtn="['button1']"
+          :text="'Thêm mới nhân viên'"
           @click="clickShowFormEmployee"
-        >
+        />
+        <!-- <button class="page__header--button button1" @click="clickShowFormEmployee">
           Thêm mới nhân viên
-        </button>
+        </button> -->
       </div>
       <div class="page__content">
         <div class="page__group">
@@ -112,26 +113,7 @@
             Tổng số:<b> {{ this.employees.length }}</b> bản ghi
           </div>
           <div class="page__pagingation">
-            <div class="combobox_paging combobox">
-              <input type="text" class="input" />
-              <button>
-                <div class="m-arrow-dropdown"></div>
-              </button>
-              <div class="combobox__data-above" hidden>
-                <div class="combobox__item item-left" value="0">
-                  5 bản ghi trên 1 trang
-                </div>
-                <div class="combobox__item item-left combobox__item-selected" value="1">
-                  10 bản ghi trên 1 trang
-                </div>
-                <div class="combobox__item item-left" value="2">
-                  15 bản ghi trên 1 trang
-                </div>
-                <div class="combobox__item item-left" value="3">
-                  20 bản ghi trên 1 trang
-                </div>
-              </div>
-            </div>
+            <MCombobox />
             <MPaging />
           </div>
         </div>
@@ -165,6 +147,7 @@ import MDialog from "@/components/base/dialog/MDialog.vue";
 import MPaging from "@/components/base/paging/MPaging.vue";
 import MCombobox from "@/components/base/combobox/MCombobox.vue";
 import { HTTP } from "../../api/http-common";
+import MButton from "@/components/base/button/MButton.vue";
 export default {
   name: "EmployeeList",
   created() {
@@ -190,7 +173,7 @@ export default {
       this.dialogSelected = 1;
       this.isShowForm = false;
       this.isShowDialog = false;
-      this.loadData();
+      // this.loadData();
     },
     closeNotLoadData() {
       this.dialogSelected = 1;
@@ -212,14 +195,13 @@ export default {
     },
     // Lọc dữ liệu
     filterByName() {
-         setTimeout(() => {
-          HTTP.get(`/employees/filter?employeeFilter=${this.nameSearch}`)
-            .then((res) => {
-                this.employees = [];
-                this.employees = res.data
-            },500)
-         },)
-        // clearTimeout(data);
+      clearTimeout(temp);
+      var temp = setTimeout(() => {
+        HTTP.get(`/employees/filter?employeeFilter=${this.nameSearch}`).then((res) => {
+          this.employees = [];
+          this.employees = res.data.Data;
+        }, 500);
+      });
     },
     // Load data lên table
     loadData() {
@@ -332,10 +314,10 @@ export default {
       htmlRow: [],
       dialogSelected: 1,
       formMode: Number,
-      nameSearch: String
+      nameSearch: String,
     };
   },
-  components: { EmployeeDetail, MLoading, MDialog, MPaging, MCombobox },
+  components: { EmployeeDetail, MLoading, MDialog, MPaging, MCombobox, MButton },
 };
 </script>
 
