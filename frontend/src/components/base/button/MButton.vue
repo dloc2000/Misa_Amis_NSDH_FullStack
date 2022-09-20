@@ -1,10 +1,5 @@
 <template>
-  <button
-    :style="{ width: width + 'px' }"
-    class="button"
-    :class="classBtn"
-    @click="clickBtn"
-  >
+  <button :style="{ width: width + 'px' }" class="button" :class="classBtn">
     {{ text }}
   </button>
 </template>
@@ -27,9 +22,6 @@ export default {
   },
   data() {
     return {};
-  },
-  methods: {
-    clickBtn() {},
   },
 };
 </script>

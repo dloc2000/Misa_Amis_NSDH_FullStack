@@ -1,16 +1,16 @@
 <template>
   <!-- <div class="combobox">
-    <button class="m-icon" @click="clickShowCombobox">
-      <div class="m-arrow-dropdown-blue"></div>
-    </button>
-    <div class="combobox__data-under" v-show="isShow">
-      <div class="combobox__item" >Nhân bản</div>
-    </div>
-  </div> -->
+              <button class="m-icon" @click="clickShowCombobox">
+                <div class="m-arrow-dropdown-blue"></div>
+              </button>
+              <div class="combobox__data-under" v-show="isShow">
+                <div class="combobox__item" >Nhân bản</div>
+              </div>
+        </div> -->
   <div
     class="combobox"
     :style="{
-      width: width + 'px',
+      width: width ? width + 'px' : '100%',
     }"
   >
     <input type="text" class="input" v-model="valueText" />
@@ -29,12 +29,6 @@
       >
         {{ item[filedName] }}
       </div>
-      <!-- <div class="combobox__item item-left" value="0">5 bản ghi trên 1 trang</div>
-      <div class="combobox__item item-left combobox__item-selected" value="1">
-        10 bản ghi trên 1 trang
-      </div>
-     
-      <div class="combobox__item item-left" value="3">20 bản ghi trên 1 trang</div> -->
     </div>
   </div>
 </template>
@@ -44,7 +38,7 @@ export default {
   props: {
     width: {
       Type: [Number, String],
-      default: 200,
+      default: null,
     },
     // dữ liệu truyền vào combobox
     data: {
@@ -81,11 +75,11 @@ export default {
     return {
       isShow: false,
       dataSearch: this.data,
-      itemSelect: null,
-      valueText: {
-        Type: String,
-        default: this.data[0].Name,
+      itemSelect: {
+        ID: 1,
+        Name: "5 bản ghi trên 1 trang",
       },
+      valueText: this.data[0].Name,
     };
   },
   methods: {

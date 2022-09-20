@@ -138,3 +138,11 @@
     right: 32px;
     left: 32px;
 }
+
+.group__button-left {
+    position: relative;
+}
+
+.group__button-right {
+    position: relative;
+}

@@ -1,6 +1,9 @@
 <template>
   <div class="bodyy" @click="hideCombobox">
-    <MCombobox :itemSelectedHide="isShow" />
+    <div class="form__popup-close">
+      <div class="btn-help m__icon-help"></div>
+      <div class="btn-close m__icon-close" @click="clickConfirmHideForm"></div>
+    </div>
   </div>
 </template>
 
@@ -27,4 +30,5 @@ export default {
   margin-top: 300px;
   margin-left: 300px;
 }
+@import url(@/css/main.css);
 </style>

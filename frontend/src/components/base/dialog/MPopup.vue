@@ -5,20 +5,34 @@
         <div class="pop__up-body">
           <div class="pop__up-icon m__icon-warning-circle"></div>
           <div class="pop__up-content" style="margin-left: 30px">
-            Mã nhân viên ko đc để trống
+            {{ message }}
           </div>
         </div>
         <div class="divides"></div>
       </div>
       <div class="popup__footer">
-        <MButton />
+        <MButton :text="'Đóng'" @click="CloseValidate" />
       </div>
     </div>
   </div>
 </template>
 <script>
 import MButton from "../button/MButton.vue";
-export default { components: { MButton } };
+export default {
+  components: { MButton },
+  name: "MPopup",
+  props: {
+    message: {
+      type: String,
+      default: "",
+    },
+  },
+  methods: {
+    CloseValidate() {
+      this.$emit("close-popup");
+    },
+  },
+};
 </script>
 <style>
 @import url("@/css/components/dialog.css");

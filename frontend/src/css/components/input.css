@@ -1,6 +1,6 @@
 .input {
     height: 32px;
-    border-radius: 4px;
+    border-radius: 2px;
     outline: none;
     box-sizing: border-box;
     border: 1px solid #bbbbbb;
@@ -61,11 +61,7 @@ select:focus {
     color: red;
 }
 
-.input__error--required {
-    border: 1px solid red;
-}
-
-.input--error {
+.input-required {
     border: 1px solid red !important;
 }
 

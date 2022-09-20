@@ -1,5 +1,16 @@
 <template>
-  <input :type="type" v-model="value" class="input" />
+  <!-- <div> -->
+  <input
+    :type="type"
+    :value="modelValue"
+    ref="input"
+    class="input"
+    :class="{ 'input-required': errMsg }"
+    @blur="blurInput(rules)"
+    @input="onInput()"
+    @change="onChange($event)"
+    :title="errMsg"
+  />
 </template>
 <script>
 import MBaseControlVue from "@/components/MBaseControl.vue";
@@ -16,7 +27,7 @@ export default {
       Type: String,
       default: "text",
     },
-    value: {
+    modelValue: {
       Type: String,
       default: null,
     },
@@ -24,21 +35,49 @@ export default {
       Type: String,
       default: null,
     },
+    classInput: {
+      Type: String,
+      default: null,
+    },
+    activeValidate: {
+      Type: Number,
+      default: 0,
+    },
+    errMsg: {
+      type: String,
+      default: "",
+    },
+    fieldName: {
+      type: String,
+      default: "",
+    },
+    firstFocus: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       currentValue: this.value,
       isValidate: false,
+      errorClass: "input-required",
+      isBorderRed: false,
     };
   },
-  watch: {
-    value: {
-      handler(newVal, oldVal) {
-        if (newVal != oldVal) {
-          this.$emit("update-value", newVal);
-        }
-      },
-    },
+  created() {
+    // this.$bus.on("validate", (param) => {
+    //   console.log(param);
+    //   this.validateControl();
+    // });
+  },
+  destroyed() {
+    // this.$bus.off("validate");
+  },
+  mounted() {
+    // autofocus
+    if (this.firstFocus) {
+      this.$refs.input.focus();
+    }
   },
   methods: {
     validateControl() {
@@ -46,14 +85,30 @@ export default {
         let listRules = this.rules.split(";");
         listRules.forEach((rule) => {
           if (rule == "required") {
-            if (!this.value) {
-              this.isValidate = true;
+            if (!this.modelValue) {
+              if (this.fieldName) {
+                this.$emit(
+                  "update:errMsg",
+                  this.fieldName + " không được để trống đù má mày"
+                );
+              } else {
+                this.$emit("update:errMsg", "Không được để trống đù má mày");
+              }
             }
           } else if (rule == "email") {
             // Email đúng định dạng
           }
         });
       }
+    },
+    blurInput() {
+      this.validateControl();
+    },
+    onChange(e) {
+      this.$emit("update:modelValue", e.target.value);
+    },
+    onInput() {
+      this.$emit("update:errMsg", null);
     },
   },
 };

@@ -5,181 +5,181 @@
     class="dialog"
     @keyup.esc.exact="clickConfirmHideForm"
   >
-    <div class="dialog__content">
-      <div class="container__form">
-        <div class="container__form-header">
-          <div class="form__popup-title">
-            <div class="title-popup">Thông tin nhân viên</div>
-            <div class="checkbox__component">
-              <input class="input-checkbox" type="checkbox" />
-              <label for="">Là khách hàng</label>
-            </div>
-            <div class="checkbox__component">
-              <input class="input-checkbox" type="checkbox" />
-              <label for="">Là nhà cung cấp</label>
-            </div>
+    <m-form :height="610">
+      <template #header>
+        <div class="form__popup-title">
+          <div class="title-popup">Thông tin nhân viên</div>
+          <div class="checkbox__component">
+            <MCheckbox :idCheckbox="'customer'" />
+            <label for="customer" value="1">Là khách hàng</label>
           </div>
-          <div class="form__popup-close">
-            <div class="btn-help m__icon-help"></div>
-            <div class="btn-close m__icon-close" @click="clickConfirmHideForm"></div>
+          <div class="checkbox__component">
+            <MCheckbox :idCheckbox="'supplier'" />
+            <label for="supplier" value="1">Là nhà cung cấp</label>
           </div>
         </div>
-        <div id="formBody" class="container__form-body row-2">
-          <div class="form__grid-up col-2">
-            <div class="grid__up-left row-3">
-              <div class="left-1">
-                <div class="group__input--title">
-                  <div class="input__title">
-                    Mã
-                    <b style="color: red">*</b>
-                  </div>
-                  <input
-                    type="text"
-                    class="input"
-                    v-model="employee.EmployeeCode"
-                    ref="inputFocus"
-                    :class="checkBlur(employee.EmployeeCode)"
-                  />
+        <div class="form__popup-close">
+          <div class="btn-help m__icon-help"></div>
+          <div class="btn-close m__icon-close" @click="clickConfirmHideForm"></div>
+        </div>
+      </template>
+
+      <template #content>
+        <div class="form__grid-up col-2">
+          <div class="grid__up-left row-3">
+            <div class="left-1">
+              <div class="group__input--title">
+                <div class="input__title">
+                  Mã
+                  <b style="color: red">*</b>
                 </div>
-                <div class="group__input--title">
-                  <div class="input__title">
-                    Tên
-                    <b style="color: red">*</b>
-                  </div>
-                  <input
-                    type="text"
-                    class="input"
-                    v-model="employee.FullName"
-                    :class="checkBlur(employee.FullName)"
-                  />
-                </div>
+                <MInput
+                  firstFocus
+                  :rules="'required'"
+                  v-model="employee.EmployeeCode"
+                  v-model:errMsg="errors.EmployeeCode"
+                  fieldName="Mã nhân viên"
+                />
               </div>
-              <div class="left-2">
-                <div class="group__input--title">
-                  <div class="input__title">
-                    Đơn vị
-                    <b style="color: red">*</b>
-                  </div>
-                  <div class="combobox">
-                    <input type="text" class="input" />
-                    <button>
-                      <div class="m-arrow-dropdown"></div>
-                    </button>
-                    <div class="combobox__data" hidden>
-                      <div class="combobox__item" value="0">Ban giám đốc</div>
-                      <div class="combobox__item" value="1">Ban nhân sự</div>
-                    </div>
-                  </div>
+              <div class="group__input--title">
+                <div class="input__title">
+                  Tên
+                  <b style="color: red">*</b>
                 </div>
-              </div>
-              <div class="left-3">
-                <div class="group__input--title">
-                  <div class="input__title">Chức danh</div>
-                  <input
-                    type="text"
-                    class="input input-full-width"
-                    id="txtPosition"
-                    v-model="employee.PositionName"
-                  />
-                </div>
+                <MInput
+                  :rules="'required'"
+                  v-model="employee.FullName"
+                  v-model:errMsg="errors.FullName"
+                  fieldName="Họ và tên"
+                />
               </div>
             </div>
-            <div class="grid__up-right row-3">
-              <div class="right-1">
-                <div class="group__input--title">
-                  <div class="input__title">Ngày sinh</div>
-                  <input type="date" class="input input-full-width" id="txtBirthday" />
+            <div class="left-2">
+              <div class="group__input--title">
+                <div class="input__title">
+                  Đơn vị
+                  <b style="color: red">*</b>
                 </div>
-                <div class="group__input--title">
-                  <div class="input__title">Giới tính</div>
-                  <div>
-                    <input type="radio" id="male" name="selector" />
-                    <label for="male">Nam</label>
-                    <input type="radio" id="female" name="selector" />
-                    <label for="female">Nữ</label>
-                    <input type="radio" id="other" name="selector" />
-                    <label for="other">Khác</label>
-                  </div>
-                </div>
+                <MCombobox />
               </div>
-              <div class="right-2">
-                <div class="group__input--title">
-                  <div class="input__title">Số CMND</div>
-                  <input type="text" class="input" v-model="employee.PhoneNumber" />
-                </div>
-                <div class="group__input--title">
-                  <div class="input__title">Ngày cấp</div>
-                  <input type="date" class="input input-full-width" />
-                </div>
-              </div>
-              <div class="right-3">
-                <div class="group__input--title">
-                  <div class="input__title">Nơi cấp</div>
-                  <input type="text" class="input input-full-width" />
-                </div>
+            </div>
+            <div class="left-3">
+              <div class="group__input--title">
+                <div class="input__title">Chức danh</div>
+                <MInput v-model="employee.PostitionName" :class="['input-full-width']" />
               </div>
             </div>
           </div>
-          <div class="form__grid-down row-3">
-            <div class="grid__down-1">
+          <div class="grid__up-right row-3">
+            <div class="right-1">
               <div class="group__input--title">
-                <div class="input__title">Địa chỉ</div>
-                <input type="text" class="input input-full-width" />
+                <div class="input__title">Ngày sinh</div>
+                <!-- <input type="date" class="input input-full-width" id="txtBirthday" /> -->
+                <MInput
+                  v-model="employee.DateOfBirth"
+                  :type="'date'"
+                  :classInput="['input-full-width']"
+                />
+              </div>
+              <div class="group__input--title">
+                <div class="input__title" style="margin-left: 5px">Giới tính</div>
+                <MInputRadioVue
+                  :listOptions="listGender"
+                  v-model="employee.Gender"
+                  fieldName="Gender"
+                />
               </div>
             </div>
-            <div class="grid__down-2">
+            <div class="right-2">
               <div class="group__input--title">
-                <div class="input__title">ĐT di động</div>
-                <input type="text" class="input" />
+                <div class="input__title">Số CMND</div>
+                <MInput v-model="employee.IdentifyNumber" />
               </div>
               <div class="group__input--title">
-                <div class="input__title">ĐT cố định</div>
-                <input type="text" class="input" />
-              </div>
-              <div class="group__input--title">
-                <div class="input__title">Email</div>
-                <input type="text" class="input" />
+                <div class="input__title">Ngày cấp</div>
+                <MInput
+                  v-model="employee.IdentifyDate"
+                  :type="'date'"
+                  :classInput="['input-full-width']"
+                />
               </div>
             </div>
-            <div class="grid__down-2 col-3">
+            <div class="right-3">
               <div class="group__input--title">
-                <div class="input__title">Tài khoản ngân hàng</div>
-                <input type="text" class="input" />
-              </div>
-              <div class="group__input--title">
-                <div class="input__title">Tên ngân hàng</div>
-                <input type="text" class="input" />
-              </div>
-              <div class="group__input--title">
-                <div class="input__title">Chi nhánh</div>
-                <input type="text" class="input" />
+                <div class="input__title">Nơi cấp</div>
+                <MInput
+                  v-model="employee.IdentifyPlace"
+                  :classInput="['input-full-width']"
+                />
               </div>
             </div>
           </div>
         </div>
-        <div class="divide"></div>
-        <div class="container__form-footer">
-          <div class="group__button-left">
-            <MButton :classBtn="'button2'" :text="'Hủy'" @click="clickCancel" />
+        <div class="form__grid-down row-3">
+          <div class="grid__down-1">
+            <div class="group__input--title">
+              <div class="input__title">Địa chỉ</div>
+              <MInput :classInput="['input-full-width']" />
+            </div>
           </div>
-          <div class="group__button-right">
-            <MButton :classBtn="'button2 button__save'" :text="'Cất'" />
-            <MButton
-              :classBtn="'button1'"
-              :text="'Cất và thêm'"
-              @click="clickAddEmployee"
-            />
+          <div class="grid__down-2">
+            <div class="group__input--title">
+              <div class="input__title">ĐT di động</div>
+              <MInput v-model:value="employee.PhoneNumber" />
+            </div>
+            <div class="group__input--title">
+              <div class="input__title">ĐT cố định</div>
+              <MInput />
+            </div>
+            <div class="group__input--title">
+              <div class="input__title">Email</div>
+              <MInput />
+            </div>
+          </div>
+          <div class="grid__down-2 col-3">
+            <div class="group__input--title">
+              <div class="input__title">Tài khoản ngân hàng</div>
+              <MInput />
+            </div>
+            <div class="group__input--title">
+              <div class="input__title">Tên ngân hàng</div>
+              <MInput />
+            </div>
+            <div class="group__input--title">
+              <div class="input__title">Chi nhánh</div>
+              <MInput />
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    <MDialog v-if="false" />
+      </template>
+
+      <template #footer>
+        <div class="group__button-left">
+          <MButton :classBtn="'button2'" :text="'Hủy'" @click="clickCancel" />
+        </div>
+        <div class="group__button-right">
+          <MButton :classBtn="'button2 button__save'" :text="'Cất'" @click="clickAdd" />
+          <MButton
+            :classBtn="'button1'"
+            :text="'Cất và thêm'"
+            @click="clickAddEmployee"
+          />
+        </div>
+      </template>
+    </m-form>
+    <MPopup
+      v-if="isShowPopup"
+      @close-popup="isShowPopup = false"
+      :message="messageError"
+    />
   </div>
 </template>
 
 <script>
 import MDialog from "@/components/base/dialog/MDialog.vue";
 import MButton from "@/components/base/button/MButton.vue";
+import MCheckbox from "@/components/base/checkbox/MCheckbox.vue";
+import { HTTP } from "@/api/http-common";
 /**
  * Bảng chi tiết thông tin nhân viên
  * Author : Locdx 13/09/2022
@@ -197,42 +197,65 @@ export default {
       default: 1,
     },
   },
+  data() {
+    return {
+      messageError: "",
+      employee: {},
+      value: null,
+      isShowPopup: false,
+      listGender: [
+        { Name: "Nam", Value: 0 },
+        { Name: "Nữ", Value: 1 },
+        { Name: "Khác", Value: 2 },
+      ],
+      errors: {},
+    };
+  },
+  components: { MDialog, MButton, MCheckbox },
   created() {
     this.employee = this.employeeSelected;
   },
-  mounted() {
-    // focus ô input đầu tiên
-    this.$refs.inputFocus.focus();
-  },
+  mounted() {},
   methods: {
-    // Thêm mới nhân viên
+    // Thêm mới hoặc sửa nhân viên
     clickAddEmployee() {
-      let url = "https://cukcuk.manhnv.net/api/v1/Employees";
-      let method = "POST";
       // validate dữ liệu
+      if (!this.objectIsEmpty(this.errors)) {
+        this.messageError = this.errors.EmployeeCode;
+        if (this.messageError) {
+          this.isShowPopup = true;
+          return;
+        }
+      }
+
       // Cất dữ liệu
       // Thêm mới - formMode = 1
       // Sửa - formMode = 2
-      if (this.formMode == 2) {
-        method = "PUT";
-        url = url + "/" + `${this.employee.EmployeeId}`;
+      if (this.formMode == 1) {
+        HTTP.post(`/employees`, this.employee)
+          .then((response) => {
+            alert("thành công", response);
+            this.$emit("hide-form");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else if (this.formMode == 2) {
+        HTTP.put(`/employees/${employee.EmployeeId}`, this.employee)
+          .then((res) => {
+            alert(res);
+            this.$emit("hide-form");
+          })
+          .catch();
       }
-      console.log("da click");
-      fetch(url, {
-        method: method,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(this.employee),
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          alert("thành công", res);
-          this.$emit("hide-form");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    },
+    inputFocus() {
+      this.$refs.inputfocus.$el.focus();
+    },
+    // Click nút Cất
+    clickAdd() {
+      // Gọi hàm của componet child
+      this.$refs.input.validateControl();
     },
     // Click button close sẽ có dialog
     clickHideForm() {
@@ -241,25 +264,18 @@ export default {
     clickConfirmHideForm() {
       this.$emit("confirm-form");
     },
-    // Click hủy sẽ đóng form nếu ko có thay đổi
+    // Click Hủy sẽ đóng form nếu ko có thay đổi
     clickCancel() {
-      this.$emit("hide-form-not-load-data");
+      this.$emit("hide-form", false);
     },
-    checkBlur(data) {
-      if (data == "" || data == null)
-        return {
-          "input--error": true,
-        };
-      else return "";
+    objectIsEmpty(obj) {
+      return (
+        obj && // 👈 null and undefined check
+        Object.keys(obj).length === 0 &&
+        Object.getPrototypeOf(obj) === Object.prototype
+      );
     },
   },
-  data() {
-    return {
-      employee: {},
-      inputFocus: undefined,
-    };
-  },
-  components: { MDialog, MButton },
 };
 </script>
 

@@ -2,15 +2,26 @@
   <div class="dialog">
     <div class="dialog__msg-box">
       <div class="msg-content">
-        <div class="m__icon-warning"></div>
+        <div class="m__icon-question"></div>
         <div class="msg__content" style="margin-right: 20px">
-          Bạn có thực sự muốn xóa Nhân viên không?
+          Dữ liệu đã bị thay đổi. Bạn có muốn cất không?
         </div>
       </div>
       <div class="dialog__footer">
-        <button class="button button2">Hủy</button>
+        <MButton
+          :class="['button2']"
+          :style="75"
+          :text="'Hủy'"
+          @click="clickHideDialog"
+        />
         <div class="">
-          <button class="button button2" style="width: 75px">Không</button>
+          <!-- <button class="button button2" style="width: 75px">Không</button> -->
+          <MButton
+            :class="['button2']"
+            :style="75"
+            :text="'Không'"
+            @click="clickHideAll"
+          />
           <button
             class="button button1"
             style="min-width: 50px !important; margin-left: 6px"
@@ -39,17 +50,23 @@
 export default {
   name: "MDialog",
   props: {
-    // Chọn dialog lúc xóa hay lúc nhấn close
-    dialogSelected: {
-      default: 1,
-    },
+    // Thông báo dữ liệu bị thay đổi
+    layoutDataChange: ["m__icon-warning", "Bạn có thực sự muốn xóa Nhân viên không?"],
+    // Cảnh báo xóa nhân viên hay không
+    layoutDataDelete: [
+      "m__icon-question",
+      "Dữ liệu đã bị thay đổi. Bạn có muốn cất không?",
+    ],
   },
   methods: {
     // Ẩn dialog
     clickHideDialog() {
       this.$emit("hide-dialog");
     },
-    // Chọn dialog
+    // Ẩn dialog và form
+    clickHideAll() {
+      this.$emit("hide-all");
+    },
   },
   data() {
     return {
