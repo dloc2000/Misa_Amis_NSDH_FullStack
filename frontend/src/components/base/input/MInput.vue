@@ -59,9 +59,7 @@ export default {
   data() {
     return {
       currentValue: this.value,
-      isValidate: false,
       errorClass: "input-required",
-      isBorderRed: false,
     };
   },
   created() {
@@ -80,6 +78,8 @@ export default {
     }
   },
   methods: {
+    /** */
+    
     validateControl() {
       if (this.rules && this.rules.length > 0) {
         let listRules = this.rules.split(";");
@@ -89,10 +89,10 @@ export default {
               if (this.fieldName) {
                 this.$emit(
                   "update:errMsg",
-                  this.fieldName + " không được để trống đù má mày"
+                  this.fieldName + " không được để trống."
                 );
               } else {
-                this.$emit("update:errMsg", "Không được để trống đù má mày");
+                this.$emit("update:errMsg", "Không được để trống.");
               }
             }
           } else if (rule == "email") {
@@ -110,6 +110,7 @@ export default {
     onInput() {
       this.$emit("update:errMsg", null);
     },
+
   },
 };
 </script>

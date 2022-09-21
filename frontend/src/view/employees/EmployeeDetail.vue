@@ -60,7 +60,7 @@
                   Đơn vị
                   <b style="color: red">*</b>
                 </div>
-                <MCombobox />
+                <MComboboxDepartment />
               </div>
             </div>
             <div class="left-3">
@@ -241,21 +241,13 @@ export default {
             console.log(error);
           });
       } else if (this.formMode == 2) {
-        HTTP.put(`/employees/${employee.EmployeeId}`, this.employee)
+        HTTP.put(`/employees/${this.employee.EmployeeId}`, this.employee)
           .then((res) => {
             alert(res);
             this.$emit("hide-form");
           })
           .catch();
       }
-    },
-    inputFocus() {
-      this.$refs.inputfocus.$el.focus();
-    },
-    // Click nút Cất
-    clickAdd() {
-      // Gọi hàm của componet child
-      this.$refs.input.validateControl();
     },
     // Click button close sẽ có dialog
     clickHideForm() {

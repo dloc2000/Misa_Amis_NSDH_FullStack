@@ -2,7 +2,7 @@
   <input
     :id="idCheckbox"
     class="m__checkbox-input"
-    :class="{ 'checkbox-active': isActives }"
+    :class="{ 'checkbox-active': isActive }"
     type="checkbox"
     @click="clickCheckbox"
   />

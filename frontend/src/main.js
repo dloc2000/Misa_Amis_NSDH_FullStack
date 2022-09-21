@@ -12,6 +12,7 @@ import MToast from "@/components/base/toast/MToast.vue"
 import MForm from "@/components/base/form/MForm.vue"
 import MCheckbox from "@/components/base/checkbox/MCheckbox.vue"
 import MCombobox from "@/components/base/combobox/MCombobox.vue"
+import MComboboxDepartment from "@/components/base/combobox/MComboboxDepartment.vue"
 import MTable from "@/components/base/table/MTable.vue"
 import MPopup from "@/components/base/dialog/MPopup.vue"
 import MInputRadioVue from "@/components/base/input/MInputRadio.vue";
@@ -25,6 +26,7 @@ app.component("MToast",  MToast);
 app.component("MForm", MForm)
 app.component("MCheckbox" , MCheckbox)
 app.component("MCombobox" , MCombobox)
+app.component("MComboboxDepartment", MComboboxDepartment)
 app.component("MTable" , MTable)
 app.component("MPopup" , MPopup)
 app.component("MInputRadioVue", MInputRadioVue)

@@ -10,6 +10,9 @@
     font-family: MISA Fonts;
 }
 
+input[type='date'] {
+    padding: 5px 10px;
+}
 .input-full-width {
     width: 100%;
 }
