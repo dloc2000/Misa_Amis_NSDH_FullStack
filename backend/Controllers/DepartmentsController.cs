@@ -1,6 +1,22 @@
-﻿namespace MISA.Web08.Amis.API.Controllers
+﻿using Microsoft.AspNetCore.Mvc;
+using MISA.Web08.Amis.API.Entities;
+
+namespace MISA.Web08.Amis.API.Controllers
 {
-    public class DepartmentsController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class DepartmentsController : ControllerBase
     {
+        [HttpGet]
+        [Route("")]
+        public IActionResult GetAllDepartment()
+        {
+            return StatusCode(StatusCodes.Status200OK, new Department
+            {
+                DepartmentID = Guid.NewGuid(),
+                DepartmentName = "Phòng Bảo Vệ",
+                DepartmentCode = "D001"
+            });
+        }
     }
 }
