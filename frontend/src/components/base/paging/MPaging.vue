@@ -2,10 +2,7 @@
   <div class="paging__group-button">
     <button class="paging__button button-first" :disabled="isDisabled">Trước</button>
     <div class="button__number-group">
-      <!-- <button class="paging__number" :class="{'button__number-selected': hasPage}">1</button>
-            <button class="paging__number">2</button>
-            <button class="paging__number">...</button>
-            <button class="paging__number">4</button> -->
+  
       <button
         class="paging__number"
         v-for="(page, index) in pages"

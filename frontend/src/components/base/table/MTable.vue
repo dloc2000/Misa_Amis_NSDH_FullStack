@@ -28,7 +28,7 @@
           @dblclick.stop="rowDoubleClick(emp)"
         >
           <td><input type="checkbox" /></td>
-          <td v-for="item in headers">
+          <td v-for="item in headers" :key="item.Field">
             <span v-if="item.type == 1">
               {{ emp[item.Field] ? emp[item.Field] : "" }}
             </span>
@@ -40,7 +40,7 @@
             </span>
           </td>
           <td>
-              <MOptions />
+              <MOptions @delete="showPopupDelete"/>
           </td>
         </tr>
         <!-- <tr class="row--selected">
@@ -176,6 +176,10 @@ export default {
     rowDoubleClick(emp) {
       this.$emit("emp-selected", emp);
     },
+    // Show popup delete
+    showPopupDelete() {
+        this.emitter.emit("popup-delete" , true);
+    }
   },
 };
 </script>

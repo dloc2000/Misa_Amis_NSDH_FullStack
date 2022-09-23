@@ -2,13 +2,13 @@
   <div class="group__title-combobox">
         <div class="title">Sửa</div>
         <div class="combobox">
-            <button class="m-icon">
+            <button class="m-icon" @click="isShow=!isShow">
                 <div class="m-arrow-dropdown-blue"></div>
             </button>
-            <div class="combobox__data-under" hidden>
-                <div class="combobox__item" value="0">Nhân bản</div>
-                <div class="combobox__item" value="1" id="btnDelEmp">Xóa</div>
-                <div class="combobox__item" value="2">Ngưng sử dụng</div>
+            <div class="combobox__data-under" v-if="isShow">
+                <div class="combobox__item" >Nhân bản</div>
+                <div class="combobox__item" @click="handleDelete">Xóa</div>
+                <div class="combobox__item" >Ngưng sử dụng</div>
             </div>
         </div>
   </div>
@@ -16,6 +16,19 @@
 <script>
 export default {
     name: "MOptions",
+    props: {
+
+    },
+    data() {
+        return {
+            isShow: false ,
+        }
+    },
+    methods: {
+        handleDelete() {
+            this.$emit("delete");
+        }
+    }
 };
 </script>
 <style scoped>

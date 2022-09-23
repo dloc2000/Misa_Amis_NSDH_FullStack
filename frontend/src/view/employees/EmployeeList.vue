@@ -34,7 +34,6 @@
               @click="console.log(dataProps)"
               >
               <span>{{formatGender(dataProps)}}</span>
-              <!-- // dataProps["data"]== 1 ? "Nam" : "Nữ" -->
             </template>
             </m-table>
           </div>
@@ -108,8 +107,8 @@ export default {
       console.log(val)
     }
   },
-  computed: {
-      
+  mounted() {
+    this.emitter.on("popup-delete", (isShowDialog) => this.isShowDialog = isShowDialog);
   },
   methods: {
     /**
@@ -176,6 +175,14 @@ export default {
     clickDeleteEmployee() {
       this.isShowDialog = true;
     },
+    /**
+     * Bật toast msg 
+     * Author : Locdx 22/09/2022
+     */
+    loadToast(){
+      
+      this.isToast = true;
+    },
     clickShowDialog() {
       this.isShowDialog = true;
     },
@@ -198,8 +205,21 @@ export default {
           console.log(error);
       }
     },
-    loadToast(){
-      this.isToast = true;
+   /**
+     * Xóa nhân viên
+     * Author : Locdx 16/09/2022
+     */
+    deleteData() {
+        try {
+            this.isLoading = true;
+            HTTP.delete(`/employees/${this.employeeSelected.EmployeeId}`)
+            .then((res) => {
+              this.isLoading = false;
+              this.isToast = true;
+            })
+        } catch (error) {
+          console.log(error)
+        }
     },
     /**
      * Lấy tất cả thông tin nhân viên load lên table

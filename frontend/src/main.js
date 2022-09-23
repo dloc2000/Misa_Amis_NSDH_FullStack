@@ -2,9 +2,6 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import {router} from './router/router'
 // import './globalComponents'
-
-const app = createApp(App);
-//Sử dụng global component
 import MButton from "@/components/base/button/MButton.vue"
 import MDialog from "@/components/base/dialog/MDialog.vue"
 import MInput from "@/components/base/input/MInput.vue"
@@ -17,7 +14,11 @@ import MOptions from "@/components/base/combobox/MOptions.vue"
 import MTable from "@/components/base/table/MTable.vue"
 import MPopup from "@/components/base/dialog/MPopup.vue"
 import MInputRadioVue from "@/components/base/input/MInputRadio.vue";
+import mitt from "mitt"
 
+const app = createApp(App);
+const emitter = mitt();
+//Sử dụng global component
 
 app.component("MButton", MButton);
 app.component("MDialog", MDialog);
@@ -32,8 +33,9 @@ app.component("MTable" , MTable)
 app.component("MPopup" , MPopup)
 app.component("MInputRadioVue", MInputRadioVue)
 
+
 // Sử dụng eventbus
-app.config.globalProperties.$bus = createApp(App);
+app.config.globalProperties.emitter = emitter;
 //Sử dụng router
 app.use(router)
 app.mount('#app');

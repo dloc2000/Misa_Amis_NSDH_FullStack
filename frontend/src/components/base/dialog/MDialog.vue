@@ -15,7 +15,6 @@
           @click="clickHideDialog"
         />
         <div class="">
-          <!-- <button class="button button2" style="width: 75px">Không</button> -->
           <MButton
             :class="['button2']"
             :style="75"
@@ -28,6 +27,7 @@
           >
             Có
           </button>
+          <!-- <Mbutton :class="['button1']" :style="50" :text="'Co'"/> -->
         </div>
       </div>
     </div>
@@ -47,7 +47,6 @@
   </div> -->
 </template>
 <script>
-import MISAResource from "@/resource/resource.js";
 export default {
   name: "MDialog",
   props: {
