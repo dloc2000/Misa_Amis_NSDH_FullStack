@@ -17,10 +17,9 @@
               class="page__toolbar--input input input-placehoder__italic"
               placeholder="Tìm theo mã, tên nhân viên"
               v-model="this.nameSearch"
-              @change="filterByName"
+              v-on:input="filterByName"
             />
             <button
-              id="btnReload"
               class="page__toolbar--reload"
               @click="clickReloadPage"
             ></button>
@@ -29,7 +28,15 @@
             </div>
           </div>
           <div class="page__table">
-            <m-table :dataSource="employees" @emp-selected="dblShowForm"></m-table>
+            <m-table :dataSource="employees" @emp-selected="dblShowForm">
+              <template
+              v-slot:customColumn="dataProps"  
+              @click="console.log(dataProps)"
+              >
+              <span>{{formatGender(dataProps)}}</span>
+              <!-- // dataProps["data"]== 1 ? "Nam" : "Nữ" -->
+            </template>
+            </m-table>
           </div>
         </div>
         <div class="page__footer">
@@ -43,13 +50,15 @@
         </div>
       </div>
     </div>
+
     <EmployeeDetail
       v-if="isShowForm"
-      ref="detail"
       @hide-form="closeFormEmployeeAndDialog"
       :employeeSelected="employeeSelected"
       @confirm-form="clickShowDialog"
       :formMode="formMode"
+      @load-data="loadData"
+      @load-toast="loadToast"
     />
     <MLoading v-if="isLoading" />
     <MDialog
@@ -58,11 +67,12 @@
       @hide-dialog="closeDialog"
       @hide-all="closeFormEmployeeAndDialog"
     />
+    <MToast v-model="isToast"/>
   </div>
 </template>
 
 <script>
-/**
+  /**
  * Bảng danh sách thông tin nhân viên
  * Author : Locdx 13/09/2022
  */
@@ -72,85 +82,149 @@ import MDialog from "@/components/base/dialog/MDialog.vue";
 import MPaging from "@/components/base/paging/MPaging.vue";
 import MCombobox from "@/components/base/combobox/MCombobox.vue";
 import { HTTP } from "../../api/http-common";
+
 export default {
   name: "EmployeeList",
   created() {
     this.loadData();
   },
   props: {},
+  data() {
+    return {
+      employees: [],
+      isLoading: false,
+      isShowForm: false,
+      isToast: false,
+      isShowDialog: false,
+      employeeSelected: {},
+      htmlRow: [],
+      formMode: 0,
+      nameSearch: null,
+      temp:null,
+    };
+  },
+  watch:{
+    isToast(val){
+      console.log(val)
+    }
+  },
+  computed: {
+      
+  },
   methods: {
-    // click reload page
+    /**
+     * hàm format gender trên client
+     * @param {obj}  
+     * Return : Nam hoặc Nữ hoặc " "
+     * Author: DXLOC 22/09/2022
+     */
+    formatGender(obj) {
+        if(obj) {
+          var gender = obj["data"];
+          if( gender == 1) {
+              return "Nam"
+          } else if(gender == 2) {
+              return "Nữ"
+          }
+        } else return ""
+      },
+    /**
+     * Btn reload trang
+     * Author: DXLOC 15/09/2022
+     */
     clickReloadPage() {
       this.loadData();
     },
-    // click "Thêm nhân viên" và hiện form
+    /**
+     *  Btn "Thêm nhân viên" và hiện form
+     * Author: DXLOC 16/09/2022
+     */
     clickShowFormEmployee() {
       this.formMode = 1;
-      // this.$refs.detail.inputFocus();
       this.isShowForm = true;
       this.employeeSelected = {};
     },
-    // dblclick show form
+    /**
+     * double click row và hiện form sửa
+     * Author: DXLOC 16/09/2022
+     */
     dblShowForm(obj) {
       this.formMode = 2;
       this.employeeSelected = obj;
       this.isShowForm = true;
     },
-    // Đóng form nhân viên và dialog
+    /**
+     * Btn đóng form nhân viên và dialog
+     * Author: DXLOC 15/09/2022
+     */
     closeFormEmployeeAndDialog() {
       this.isShowForm = false;
       this.isShowDialog = false;
       // this.loadData();
     },
-    // Đóng Dialog
+    /**
+     * Btn đóng Dialog
+     * Author: DXLOC 15/09/2022
+     */
     closeDialog() {
       this.isShowDialog = false;
     },
-    // Xóa nhân viên
+    /**
+     * Btn xóa employee
+     * Author: DXLOC 17/09/2022
+     */
     clickDeleteEmployee() {
       this.isShowDialog = true;
     },
     clickShowDialog() {
       this.isShowDialog = true;
     },
-    // Lọc dữ liệu
+    /**
+     * Lọc dữ liệu theo tên
+     * Author : Locdx 16/09/2022
+     */
     filterByName() {
-      clearTimeout(temp);
-      var temp = setTimeout(() => {
-        HTTP.get(`/employees/filter?employeeFilter=${this.nameSearch}`).then((res) => {
-          this.employees = [];
-          this.employees = res.data.Data;
-        }, 500);
-      });
-    },
-    // Load data lên table
-    loadData() {
-      //Loading dữ liệu
-      this.isLoading = true;
-      // Call API lấy tất cả các nhân viên = Axios.
-      HTTP.get(`/employees`)
-        .then((reponse) => {
-          this.employees = reponse.data;
-          this.isLoading = false;
-        })
-        .catch((error) => {
+      try {
+        clearTimeout(this.temp);
+        this.temp = setTimeout(() => {
+          HTTP.get(`/employees/filter?employeeFilter=${this.nameSearch}`).then((res) => {
+            this.employees = [];
+            setTimeout(()=>{
+              this.employees = res.data.Data;
+            },0)
+          });
+        }, 300);
+      } catch (error) {
           console.log(error);
-          this.loading = false;
-        });
+      }
+    },
+    loadToast(){
+      this.isToast = true;
+    },
+    /**
+     * Lấy tất cả thông tin nhân viên load lên table
+     * Author : Locdx 13/09/2022
+     */
+    loadData() {
+      try {
+          //Loading dữ liệu
+        this.isLoading = true;
+        // Call API lấy tất cả các nhân viên = Axios.
+        HTTP.get(`/employees`)
+          .then((reponse) => {
+            this.employees = reponse.data;
+            this.isLoading = false;
+          })
+          .catch((error) => {
+            console.log(error);
+            this.loading = false;
+          });
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
-  data() {
-    return {
-      employees: [],
-      isLoading: false,
-      isShowForm: false,
-      isShowDialog: false,
-      employeeSelected: {},
-      htmlRow: [],
-      formMode: 0,
-      nameSearch: null,
-    };
-  },
+
   components: { EmployeeDetail, MLoading, MDialog, MPaging, MCombobox },
 };
 </script>

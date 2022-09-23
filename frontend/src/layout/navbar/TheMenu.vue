@@ -13,7 +13,7 @@
     >
       <div
         class="navbar__icon m-icon-24"
-        :class="[menuItem.icon, { 'item-selected': index == 1 }]"
+        :class="[menuItem.icon, { 'item-selected': activeIndex == index}]"
       ></div>
       <div class="navbar__text">{{ menuItem.menu }}</div>
     </router-link>
@@ -32,7 +32,7 @@ export default {
         {
           id: 1,
           menu: "Tổng quan",
-          icon: "m__icon-dashboard",
+          icon: "m__icon-dashboard ",
           path: "/tong-quan",
         },
         {
@@ -113,5 +113,8 @@ export default {
 };
 </script>
 <style>
+  .m__icon-dashboard:focus{
+
+  }
 /* @import url("../../css/layout/navbar.css"); */
 </style>

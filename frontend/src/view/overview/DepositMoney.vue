@@ -1,16 +1,14 @@
 <template>
-  <div class="bodyy" @click="hideCombobox">
-    <div class="form__popup-close">
-      <div class="btn-help m__icon-help"></div>
-      <div class="btn-close m__icon-close" @click="clickConfirmHideForm"></div>
-    </div>
+  <div>
+    <MToast />
   </div>
 </template>
 
 <script>
 import MCombobox from "@/components/base/combobox/MCombobox.vue";
+import MToast from "@/components/base/toast/MToast.vue";
 export default {
-  components: { MCombobox },
+  components: { MCombobox, MToast },
   props: {},
   data() {
     return {

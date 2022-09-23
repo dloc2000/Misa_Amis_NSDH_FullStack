@@ -5,7 +5,7 @@
     class="dialog"
     @keyup.esc.exact="clickConfirmHideForm"
   >
-    <m-form :height="610">
+    <m-form :height="610" @submit.prevent="clickAddEmployee">
       <template #header>
         <div class="form__popup-title">
           <div class="title-popup">Thông tin nhân viên</div>
@@ -20,7 +20,10 @@
         </div>
         <div class="form__popup-close">
           <div class="btn-help m__icon-help"></div>
-          <div class="btn-close m__icon-close" @click="clickConfirmHideForm"></div>
+          <div
+            class="btn-close m__icon-close"
+            @click="clickConfirmHideForm"
+          ></div>
         </div>
       </template>
 
@@ -66,7 +69,10 @@
             <div class="left-3">
               <div class="group__input--title">
                 <div class="input__title">Chức danh</div>
-                <MInput v-model="employee.PostitionName" :class="['input-full-width']" />
+                <MInput
+                  v-model="employee.PostitionName"
+                  :class="['input-full-width']"
+                />
               </div>
             </div>
           </div>
@@ -76,13 +82,15 @@
                 <div class="input__title">Ngày sinh</div>
                 <!-- <input type="date" class="input input-full-width" id="txtBirthday" /> -->
                 <MInput
-                  v-model="employee.DateOfBirth"
+                  v-model="dateTrungGian"
                   :type="'date'"
                   :classInput="['input-full-width']"
                 />
               </div>
               <div class="group__input--title">
-                <div class="input__title" style="margin-left: 5px">Giới tính</div>
+                <div class="input__title" style="margin-left: 5px">
+                  Giới tính
+                </div>
                 <MInputRadioVue
                   :listOptions="listGender"
                   v-model="employee.Gender"
@@ -139,7 +147,7 @@
           <div class="grid__down-2 col-3">
             <div class="group__input--title">
               <div class="input__title">Tài khoản ngân hàng</div>
-              <MInput />
+              <MInput v-model:value="employee.Bank" />
             </div>
             <div class="group__input--title">
               <div class="input__title">Tên ngân hàng</div>
@@ -155,14 +163,14 @@
 
       <template #footer>
         <div class="group__button-left">
-          <MButton :classBtn="'button2'" :text="'Hủy'" @click="clickCancel" />
+          <MButton :classBtn="'button2'" :text="'Hủy'" @click.esc="clickCancel" />
         </div>
         <div class="group__button-right">
-          <MButton :classBtn="'button2 button__save'" :text="'Cất'" @click="clickAdd" />
+          <!-- <MButton :classBtn="'button2 button__save'" :text="'Cất'" @click="clickAdd" /> -->
           <MButton
             :classBtn="'button1'"
             :text="'Cất và thêm'"
-            @click="clickAddEmployee"
+            @click.enter="clickAddEmployee"
           />
         </div>
       </template>
@@ -180,6 +188,8 @@ import MDialog from "@/components/base/dialog/MDialog.vue";
 import MButton from "@/components/base/button/MButton.vue";
 import MCheckbox from "@/components/base/checkbox/MCheckbox.vue";
 import { HTTP } from "@/api/http-common";
+import common from "@/common/common.js";
+
 /**
  * Bảng chi tiết thông tin nhân viên
  * Author : Locdx 13/09/2022
@@ -204,68 +214,99 @@ export default {
       value: null,
       isShowPopup: false,
       listGender: [
-        { Name: "Nam", Value: 0 },
-        { Name: "Nữ", Value: 1 },
-        { Name: "Khác", Value: 2 },
+        { Name: "Nam", Value: 1 },
+        { Name: "Nữ", Value: 2 },
+        { Name: "Khác", Value: 0 },
       ],
       errors: {},
+      dateTrungGian: "",
     };
   },
   components: { MDialog, MButton, MCheckbox },
   created() {
+    this.employeeSelected.DateOfBirth = common.formatDate2(
+      this.employeeSelected.DateOfBirth
+    );
     this.employee = this.employeeSelected;
+    this.dateTrungGian = this.employeeSelected.DateOfBirth;
+    // this.dateTrungGian.splice(0,10);
   },
-  mounted() {},
-  methods: {
-    // Thêm mới hoặc sửa nhân viên
-    clickAddEmployee() {
-      // validate dữ liệu
-      if (!this.objectIsEmpty(this.errors)) {
-        this.messageError = this.errors.EmployeeCode;
-        if (this.messageError) {
-          this.isShowPopup = true;
-          return;
-        }
-      }
-
-      // Cất dữ liệu
-      // Thêm mới - formMode = 1
-      // Sửa - formMode = 2
-      if (this.formMode == 1) {
-        HTTP.post(`/employees`, this.employee)
-          .then((response) => {
-            alert("thành công", response);
-            this.$emit("hide-form");
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } else if (this.formMode == 2) {
-        HTTP.put(`/employees/${this.employee.EmployeeId}`, this.employee)
-          .then((res) => {
-            alert(res);
-            this.$emit("hide-form");
-          })
-          .catch();
+  watch: {
+    dateTrungGian(newval, oldval) {
+      if (newval != oldval) {
+        this.employee.DateOfBirth = this.sliceString(newval);
       }
     },
-    // Click button close sẽ có dialog
+  },
+  methods: {
+    /**
+     * Click sửa , thêm nhân viên
+     * Author : Locdx 13/09/2022
+     */
+    clickAddEmployee() {
+      try {
+        // validate dữ liệu
+        if (!this.objectIsEmpty(this.errors)) {
+          this.messageError = this.errors.EmployeeCode;
+          if (this.messageError) {
+            this.isShowPopup = true;
+            return;
+          }
+        }
+
+        // Cất dữ liệu
+        // Thêm mới - formMode = 1
+        // Sửa - formMode = 2
+        if (this.formMode == 1) {
+          HTTP.post(`/employees`, this.employee)
+            .then((response) => {
+              this.$emit("hide-form");
+              this.$emit("load-data");
+              this.$emit("load-toast");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else if (this.formMode == 2) {
+          HTTP.put(`/employees/${this.employee.EmployeeId}`, this.employee)
+            .then((res) => {
+              this.$emit("hide-form");
+              this.$emit("load-data");
+              this.$emit("load-toast");
+            })
+            .catch();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    /**
+     * Click ẩn form nhân viên
+     * Author : Locdx 13/09/2022
+     */
     clickHideForm() {
       this.$emit("hide-form");
     },
     clickConfirmHideForm() {
       this.$emit("confirm-form");
     },
-    // Click Hủy sẽ đóng form nếu ko có thay đổi
+    /**
+     * Click hủy sẽ đóng form nhân viên
+     * Author : Locdx 13/09/2022
+     */
     clickCancel() {
       this.$emit("hide-form", false);
     },
+    // Check objects null
     objectIsEmpty(obj) {
       return (
         obj && // 👈 null and undefined check
         Object.keys(obj).length === 0 &&
         Object.getPrototypeOf(obj) === Object.prototype
       );
+    },
+    sliceString(text) {
+      return text.slice(0, 10) + "T00:00:00";
     },
   },
 };

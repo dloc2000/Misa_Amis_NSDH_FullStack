@@ -14,7 +14,9 @@
           >
             {{ item.Caption }}
           </th>
-          <th class="text__align--center" style="min-width: 120px">Chức năng</th>
+          <th class="text__align--center" style="min-width: 120px">
+            Chức năng
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -27,13 +29,18 @@
         >
           <td><input type="checkbox" /></td>
           <td v-for="item in headers">
-            {{ emp[item.Field] ? emp[item.Field] : "" }}
+            <span v-if="item.type == 1">
+              {{ emp[item.Field] ? emp[item.Field] : "" }}
+            </span>
+            <span v-else-if="item.type == 2">
+              {{ emp[item.Field] ? Common.formatDate(emp[item.Field]) : "" }}
+            </span>
+            <span v-else-if="item.type == 3">
+              <slot name="customColumn" :data="emp[item.Field]"></slot>
+            </span>
           </td>
           <td>
-            <div class="group__title-combobox">
-              <div class="title">Sửa</div>
-              <!-- <MCombobox /> -->
-            </div>
+              <MOptions />
           </td>
         </tr>
         <!-- <tr class="row--selected">
@@ -51,17 +58,7 @@
                                                 <td class="text__align--left" style="min-width: 250px;">Tên ngân hàng</td>
                                                 <td class="text__align--left" style="min-width: 250px;">Chi nhánh TK ngân hàng</td>
                                                 <td class="text__align--center" style="min-width: 120px;">
-                                                        <div class="group__title-combobox">
-                                                            <div class="title">Sửa</div>
-                                                            <div class="combobox">
-                                                                <button class="m-icon"><div class="m-arrow-dropdown-blue"></div></button>
-                                                                <div class="combobox__data-under" hidden>
-                                                                    <div class="combobox__item" value="0">Nhân bản</div>
-                                                                    <div class="combobox__item" value="1" id="btnDelEmp">Xóa</div>
-                                                                    <div class="combobox__item"  value="2">Ngưng sử dụng</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        
                                                 </td>
                                             </tr> -->
       </tbody>
@@ -69,6 +66,7 @@
   </div>
 </template>
 <script>
+import common from "@/common/common.js";
 export default {
   name: "MTable",
   props: {
@@ -88,62 +86,85 @@ export default {
           Field: "EmployeeCode",
           Width: 150,
           className: "text__align--left",
+          type: 1, // 1- text, 2 -date, 3-datetime, 4- time
         },
         {
           Caption: "Tên nhân viên",
           Field: "FullName",
           Width: 250,
           className: "text__align--left",
+          type: 1,
         },
         {
           Caption: "Giới tính",
           Field: "Gender",
           Width: 120,
           className: "text__align--left",
+          type: 3,
         },
         {
           Caption: "Ngày sinh",
           Field: "DateOfBirth",
           Width: 120,
           className: "text__align--center",
+          type: 2,
         },
         {
           Caption: "Số CMND",
           Field: "IdentifyNumber",
           Width: 200,
           className: "text__align--left",
+          type: 1,
         },
         {
           Caption: "Chức danh",
           Field: "PostitionName",
           Width: 250,
           className: "text__align--left",
+          type: 1,
         },
         {
           Caption: "Tên đơn vị",
           Field: "DepartmentName",
           Width: 250,
           className: "text__align--left",
+          type: 1,
         },
         {
           Caption: "Số tài khoản",
           Field: "EmployeeCode",
           Width: 150,
           className: "text__align--left",
+          type: 1,
         },
         {
           Caption: "Tên ngân hàng",
           Field: "EmployeeCode",
           Width: 250,
           className: "text__align--left",
+          type: 1,
         },
         {
           Caption: "Chi nhánh TK ngân hàng",
           Field: "EmployeeCode",
           Width: 250,
           className: "text__align--left",
+          type: 1,
         },
       ],
+    },
+  },
+  data() {
+    return {
+      indexRow: 0,
+      employeeSelected: {},
+      Common: common,
+    };
+  },
+  computed: {
+    convertGender() {
+      if (true) {
+      }
     },
   },
   methods: {
@@ -155,12 +176,6 @@ export default {
     rowDoubleClick(emp) {
       this.$emit("emp-selected", emp);
     },
-  },
-  data() {
-    return {
-      indexRow: 0,
-      employeeSelected: {},
-    };
   },
 };
 </script>

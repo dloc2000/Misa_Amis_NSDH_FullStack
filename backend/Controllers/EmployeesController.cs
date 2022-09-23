@@ -1,6 +1,8 @@
 ﻿using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using MISA.Web08.Amis.API.Entities;
+using MISA.Web08.Amis.API.Entities.DTO;
+using MISA.Web08.Amis.API.Resources;
 using MySqlConnector;
 
 namespace MISA.Web08.Amis.API.Controllers
@@ -20,28 +22,40 @@ namespace MISA.Web08.Amis.API.Controllers
         [Route("{employeeID}")]
         public IActionResult GetEmployeeByID([FromRoute] Guid employeeID)
         {
-            return StatusCode(StatusCodes.Status200OK, new Employee
+           try
             {
-                EmployeeID = Guid.NewGuid(),
-                EmployeeCode = "NV0002",
-                EmployeeName = "Dương",
-                DateOfBirth = DateTime.Now,
-                Email = "xuanloc176@gmail.com",
-                PhoneNumber = "0921849978",
-                Gender = 0,
-                IdentityNumber = "001200023232",
-                IdentityPlace = "CA Hà Nội",
-                IdentityDate = DateTime.Now,
-                PositionID = Guid.NewGuid(),
-                PositionName = "Lập trình viên",
-                DepartmentID = Guid.NewGuid(),
-                DepartmentName = "Phòng dự án",
-                Salary = 10000,
-                CreateDate = DateTime.Now,
-                CreateBy = "Nguyễn Văn Mạnh",
-                ModifiedDate = DateTime.Now,
-                ModifiedBy = "Nguyễn Văn Mạnh"
-            });
+                // Khởi tạo kết nối tới DB 
+                string connectionString = "Server=localhost;Port=3306;Database=misa.web08.amis.api;Uid=root;Pwd=root";
+                var mysqlConnection = new MySqlConnection(connectionString);
+
+                // Chuẩn bị câu lệnh procedure
+                string storedProcedureName = "Proc_employee_GetByID";
+
+                // Chuẩn bị tham số đầu vào cho câu lệnh
+                var parameters = new DynamicParameters();
+                parameters.Add("@EmployeeID", employeeID);
+                // Thực hiện gọi vào DB  để chạy câu lệnh SQL với tham số đầu vào ở trên
+                var employee = mysqlConnection.QueryFirstOrDefault<Employee>(storedProcedureName , parameters , commandType: System.Data.CommandType.StoredProcedure);
+
+                // Xử lý kết quả trả về từ DB
+                if(employee != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, employee);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status404NotFound);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult(
+                    AmisErrorCode.Exception,
+                    "Có lỗi xảy ra",
+                    "http://openapi.misa.com.vn/errorcode/e001"
+                    ));
+            }
         }
         /// <summary>
         /// API Lấy thông tin các nhân viên 
@@ -62,7 +76,7 @@ namespace MISA.Web08.Amis.API.Controllers
 
                 // Chuẩn bị câu lệnh SQL
                 string getAllEmployeeCommand = "SELECT * FROM employee";
-                string storedProcedureName = "Proc_employee_GetAll";
+                string storedProcedureName = "Proc_employee_All";
                 // Chuẩn bị tham số đầu vào cho câu lệnh
 
                 // Thực hiện gọi vào DB  để chạy câu lệnh SQL với tham số đầu vào ở trên
@@ -79,7 +93,7 @@ namespace MISA.Web08.Amis.API.Controllers
             {
                 Console.WriteLine(ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult(
-                    CukCukErrorCode.Exception,
+                    "CukCukErrorCode.Exception",
                     "Có lỗi xảy ra",
                     "http://openapi.misa.com.vn/errorcode/e001"
                     )) ;
@@ -112,13 +126,13 @@ namespace MISA.Web08.Amis.API.Controllers
                 parameters.Add("v_DateOfBirth", employee.DateOfBirth);
                 parameters.Add("v_Gender", employee.Gender);
                 parameters.Add("v_PhoneNumber", employee.PhoneNumber);
-                parameters.Add("v_EmployeeID", employee.IdentityNumber);
-                parameters.Add("v_EmployeeID", employee.IdentityDate);
-                parameters.Add("v_EmployeeID", employee.IdentityPlace);
-                parameters.Add("v_EmployeeID", employee.DepartmentID);
-                parameters.Add("v_EmployeeID", employee.DepartmentName);
-                parameters.Add("v_EmployeeID", employee.PositionID);
-                parameters.Add("v_EmployeeID", employee.PositionName);
+                parameters.Add("v_IdentityNumber", employee.IdentityNumber);
+                parameters.Add("v_IdentityDate", employee.IdentityDate);
+                parameters.Add("v_IdentityPlace", employee.IdentityPlace);
+                parameters.Add("v_DepartmentID", employee.DepartmentID);
+                parameters.Add("v_DepartmentName", employee.DepartmentName);
+                parameters.Add("v_PositionID", employee.PositionID);
+                parameters.Add("v_PositionName", employee.PositionName);
                 parameters.Add("v_CreateDate", DateTime.Now);
                 parameters.Add("v_CreateBy", employee.CreateBy);
                 parameters.Add("v_ModifiedDate", DateTime.Now);
@@ -135,7 +149,7 @@ namespace MISA.Web08.Amis.API.Controllers
                  else
                 {
                     return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
-                    CukCukErrorCode.Exception,
+                    "CukCukErrorCode.Exception",
                     "Có lỗi xảy ra",
                     "http://openapi.misa.com.vn/errorcode/e001"
                     ));
@@ -144,7 +158,7 @@ namespace MISA.Web08.Amis.API.Controllers
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult(
-                    CukCukErrorCode.Exception,
+                    "CukCukErrorCode.Exception",
                     "Có lỗi xảy ra",
                     "http://openapi.misa.com.vn/errorcode/e001"
                     ));

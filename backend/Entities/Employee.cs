@@ -9,6 +9,7 @@
         /// Ctrl + M + O : đóng comment
         /// Ctril + M + L : mở comment
 
+        
         public Guid EmployeeID { get; set; }
 
         public string EmployeeCode { get; set; }

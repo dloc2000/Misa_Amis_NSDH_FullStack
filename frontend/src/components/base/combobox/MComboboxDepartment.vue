@@ -1,7 +1,7 @@
 <template lang="">
     <div class="combobox">
-        <input type="text">
-        <button @click="isShowDepartment = !isShowDepartment">
+        <MInput :text="'text'" v-model="value" :rules="'required'"/>
+        <button @click="clickShowDepartment">
             <div class="icon">
             </div>
         </button>
@@ -13,19 +13,12 @@
                     <th>Tên đơn vị</th>
                 </tr>
 
-                <tr class="text__align--left">
-                    <td style="width: 80px;">DV03</td>
-                    <td>Dv05</td>
-                </tr>
-                <tr class="text__align--left">
-                    <td style="width: 80px;">DV03</td>
-                    <td>Dv05</td>
-                </tr>
-                <tr class="text__align--left">
-                    <td style="width: 80px;">DV03</td>
-                    <td>Dv05</td>
-                </tr>
-
+                <tbody>
+                    <tr class="text__align--left" v-for="(department, index) in dataDepartment" :key="index" :class="{'row-active':  department[fieldKey] === itemSelected}" @click="selectDepartment(department)">
+                        <td style="width: 80px;">{{department[fieldKey]}}</td>
+                        <td>{{department[fieldName]}}</td>
+                    </tr>
+                </tbody>
             </table>
             <div class="dropdown-footer">
                 <div class="btn-search">
@@ -37,21 +30,101 @@
     </div>
 </template>
 <script>
+import { HTTP } from '@/api/http-common';
+
 export default {
     name: "MComboboxDepartment",
     props: {
-
+        fieldKey: {
+                Type: String,
+                default: "DepartmentCode",
+            },
+        fieldName: {
+                Type: String,
+                default: "DepartmentName",
+            },
+        error: {}
+    },
+    created() {
+        this.getAllDepartment();
+    },
+    computed: {
+        //   filterDepartment: {
+        //     get() {
+        //         if(this.value.trim().length > 0) {
+        //             return this.dataDepartment.filter((dep) => dep["DepartmentName"].toLowerCase().includes(this.value.trim()));
+        //          }
+        //               return this.dataDepartment   
+        //     } ,
+        //      set(newval) {
+        //         this.filterDepartment = newval 
+        //      }     
+        // }
+    },
+    watch: {
+            value(newval, oldval) {
+                if(newval != oldval) {
+                    if(newval){
+                        this.dataDepartment = this.cloneData.filter((dep) => dep["DepartmentName"].toLowerCase().includes(newval.trim()));
+                    }else{
+                        this.dataDepartment = this.cloneData;
+                    }
+                }
+            }
     },
     data() {
         return {
             isShowDepartment: false,
+            dataDepartment: {
+                Type: Array,
+                default: []
+            },
+            itemSelected: "",
+            value: "",
+            cloneData: [],
         }
+    },
+    methods: {
+        /**
+         * Lấy ra tất cả thông tin phòng ban
+         * Author: DXLOC 21/09/2022
+         */
+        getAllDepartment() {
+            try {
+                HTTP.get(`\Departments`)
+                .then((res) => {
+                    console.log(res)
+                    this.dataDepartment = res.data;
+                    this.cloneData = [...res.data];
+                })    
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        // Chọn hàng  của đơn vị
+        selectDepartment(department) {
+            this.itemSelected = department[this.fieldKey];
+            this.value = department[this.fieldName]
+            this.isShowDepartment = false; 
+        },
+        clickShowDepartment() {
+            this.dataDepartment = this.cloneData;
+            this.isShowDepartment = !this.isShowDepartment;
+        },
+        blurInput() {
+            this.isShowDepartment = false;
+        },
+      
     }
 }
 </script>
 <style scoped>
 @import url(@/css/components/combobox.css);
 
+.row-active {
+    background-color: #2ca01c !important;
+    color: #fff;
+}
 .dropdown-footer {
     background-color: #f0f0f0;
     height: 30px;
@@ -94,12 +167,15 @@ table tr th {
     text-transform: initial;
 }
 
-table tr:not(:first-child):hover {
+table tbody tr:hover {
     background-color: #f0f0f0 !important;
     color: #35bf22;
     cursor: pointer;
 }
 
+table tbody {
+    overflow-y:auto;
+}
 table {
     width: 100%;
     border: none !important;

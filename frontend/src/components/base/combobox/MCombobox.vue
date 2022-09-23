@@ -1,12 +1,4 @@
 <template>
-  <!-- <div class="combobox">
-              <button class="m-icon" @click="clickShowCombobox">
-                <div class="m-arrow-dropdown-blue"></div>
-              </button>
-              <div class="combobox__data-under" v-show="isShow">
-                <div class="combobox__item" >Nhân bản</div>
-              </div>
-        </div> -->
   <div
     class="combobox"
     :style="{

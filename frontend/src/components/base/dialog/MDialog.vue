@@ -47,11 +47,15 @@
   </div> -->
 </template>
 <script>
+import MISAResource from "@/resource/resource.js";
 export default {
   name: "MDialog",
   props: {
     // Thông báo dữ liệu bị thay đổi
-    layoutDataChange: ["m__icon-warning", "Bạn có thực sự muốn xóa Nhân viên không?"],
+    layoutDataChange: [
+      "m__icon-warning",
+      "Bạn có thực sự muốn xóa Nhân viên không?",
+    ],
     // Cảnh báo xóa nhân viên hay không
     layoutDataDelete: [
       "m__icon-question",
