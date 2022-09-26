@@ -63,16 +63,22 @@
                   Đơn vị
                   <b style="color: red">*</b>
                 </div>
-                <MComboboxDepartment />
+                <MComboboxDepartment v-model:departmentId="employee.DepartmentId" v-model:departmentCode="employee.DepartmentCode"
+                v-model:departmentName="employee.DepartmentName" v-model:depError="errors.DepartmentName"/>
               </div>
             </div>
             <div class="left-3">
               <div class="group__input--title">
                 <div class="input__title">Chức danh</div>
-                <MInput
-                  v-model="employee.PostitionName"
-                  :class="['input-full-width']"
-                />
+                <div class="combobox" style="width: 100%">
+                  <input type="text" class="input input-full-width" v-model="employee.PositionName">
+                  <button @click="isShowPosition=!isShowPosition" tabindex="-1">
+                    <div class="icon"></div>
+                  </button>
+                  <div class="combobox__data-under" v-if="isShowPosition">
+                      <div class="combobox__item" v-for="(item,id) in positions" :key="id" :class="{'combobox__item-selected': item.PositionId == idPos }" @click="onSelectPosition(item)">{{item.PositionName}}</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -101,12 +107,12 @@
             <div class="right-2">
               <div class="group__input--title">
                 <div class="input__title">Số CMND</div>
-                <MInput v-model="employee.IdentifyNumber" />
+                <MInput v-model="employee.IdentityNumber"/>
               </div>
               <div class="group__input--title">
                 <div class="input__title">Ngày cấp</div>
                 <MInput
-                  v-model="employee.IdentifyDate"
+                  v-model="employee.IdentityDate"
                   :type="'date'"
                   :classInput="['input-full-width']"
                 />
@@ -116,7 +122,7 @@
               <div class="group__input--title">
                 <div class="input__title">Nơi cấp</div>
                 <MInput
-                  v-model="employee.IdentifyPlace"
+                  v-model="employee.IdentityPlace"
                   :classInput="['input-full-width']"
                 />
               </div>
@@ -163,10 +169,14 @@
 
       <template #footer>
         <div class="group__button-left">
-          <MButton :classBtn="'button2'" :text="'Hủy'" @click.esc="clickCancel" />
+          <MButton
+            :classBtn="'button2'"
+            :text="'Hủy'"
+            @click.esc="clickCancel"
+          />
         </div>
         <div class="group__button-right">
-          <!-- <MButton :classBtn="'button2 button__save'" :text="'Cất'" @click="clickAdd" /> -->
+          <MButton :classBtn="'button2 button__save'" :text="'Cất'" />
           <MButton
             :classBtn="'button1'"
             :text="'Cất và thêm'"
@@ -213,6 +223,8 @@ export default {
       employee: {},
       value: null,
       isShowPopup: false,
+      isShowPosition: false,
+      positions: {},
       listGender: [
         { Name: "Nam", Value: 1 },
         { Name: "Nữ", Value: 2 },
@@ -220,6 +232,7 @@ export default {
       ],
       errors: {},
       dateTrungGian: "",
+      idPos: 0
     };
   },
   components: { MDialog, MButton, MCheckbox },
@@ -228,8 +241,8 @@ export default {
       this.employeeSelected.DateOfBirth
     );
     this.employee = this.employeeSelected;
+    this.getAllPosition();
     this.dateTrungGian = this.employeeSelected.DateOfBirth;
-    // this.dateTrungGian.splice(0,10);
   },
   watch: {
     dateTrungGian(newval, oldval) {
@@ -253,10 +266,10 @@ export default {
             return;
           }
         }
+        console.log(this.employee)
 
         // Cất dữ liệu
         // Thêm mới - formMode = 1
-        // Sửa - formMode = 2
         if (this.formMode == 1) {
           HTTP.post(`/employees`, this.employee)
             .then((response) => {
@@ -267,6 +280,7 @@ export default {
             .catch((error) => {
               console.log(error);
             });
+        // Sửa - formMode = 2
         } else if (this.formMode == 2) {
           HTTP.put(`/employees/${this.employee.EmployeeId}`, this.employee)
             .then((res) => {
@@ -297,17 +311,48 @@ export default {
     clickCancel() {
       this.$emit("hide-form", false);
     },
-    // Check objects null
+    /**
+     * Check object null và undefined
+     * Author : Locdx 21/09/2022
+     */
     objectIsEmpty(obj) {
       return (
-        obj && // 👈 null and undefined check
+        obj &&
         Object.keys(obj).length === 0 &&
         Object.getPrototypeOf(obj) === Object.prototype
       );
     },
+    /**
+     * Chuỗi định dạng ngày dưới database
+     * Author : Locdx 21/09/2022
+     */
     sliceString(text) {
       return text.slice(0, 10) + "T00:00:00";
     },
+    /**
+     * Lấy tất cả chức vụ
+     * Author : Locdx 23/09/2022
+     */
+    getAllPosition() {
+        try {
+            HTTP.get(`/Positions`)
+            .then((res) => {
+                this.positions = res.data
+            })
+        } catch (error) {
+          console.log(error);
+        }
+    },
+    /**
+     * chọn chức vụ
+     * Author: Locdx 23/09/2022
+     */
+    onSelectPosition(pos) {
+        this.idPos = pos.PositionId
+        this.isShowPosition = false;
+        this.employee.PositionName = pos.PositionName
+        this.employee.PositionId = pos.PositionId
+    }
   },
 };
 </script>

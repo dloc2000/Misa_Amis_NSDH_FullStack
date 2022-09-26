@@ -40,6 +40,14 @@ var MISAResource = {
         confirm: {
             VI: "Dữ liệu đã bị thay đổi bạn có muốn cất không?",
             EN: ""
+        },
+        delete: {
+            VI: "Bạn có thực sự muốn xóa nhân viên không?",
+            EN: "Bạn có thực sự muốn xóa nhân viên không?"
+        },
+        deletes: {
+            VI: "Bạn có thực sự muốn xóa hàng loạt nhân viên không?",
+            EN: "Bạn có thực sự muốn xóa hàng loạt nhân viên không?"
         }
     }
 

@@ -1,7 +1,7 @@
 <template>
   <!-- <div> -->
   <input :type="type" :value="modelValue" ref="input" class="input" :class="{ 'input-required': errMsg }"
-    @blur="blurInput(rules)" @input="onInput()" @change="onChange($event)" :title="errMsg" />
+    @blur="blurInput(rules)" @input="onInput($event)" @change="onChange($event)" :title="errMsg" />
 </template>
 <script>
 import MBaseControlVue from "@/components/MBaseControl.vue";
@@ -72,7 +72,11 @@ export default {
     
   },
   mounted() {
-    // autofocus
+     /**
+     * Auto focus ô nhập liệu đầu tiên khi mở form
+     * Author : DXLoc 20/09/2022
+     * 
+     */
     if (this.firstFocus) {
       this.$refs.input.focus();
     }
@@ -90,6 +94,7 @@ export default {
         listRules.forEach((rule) => {
           if (rule == "required") {
             if (!this.modelValue) {
+              // kiểm tra fieldName
               if (this.fieldName) {
                 // bắn lỗi lên form
                 this.$emit(
@@ -127,8 +132,9 @@ export default {
      * Author : DXLoc 20/09/2022
      * 
      */
-    onInput() {
+    onInput(e) {
       this.$emit("update:errMsg", null);
+      this.$emit("update:modelValue", e.target.value);
     },
      /**
      * format date khi đẩy lên database

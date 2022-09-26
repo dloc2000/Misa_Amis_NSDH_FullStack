@@ -104,8 +104,15 @@ export default {
       },
     };
   },
-  created() {},
+  created() {
+ 
+  },
   methods: {
+    /**
+     * Bấm chọn menu
+     * @param {index}  
+     * Author: DXLOC 10/09/2022
+     */
     clickSelectedMenu(index) {
       this.activeIndex = index;
     },

@@ -7,7 +7,7 @@
             </button>
             <div class="combobox__data-under" v-if="isShow">
                 <div class="combobox__item" >Nhân bản</div>
-                <div class="combobox__item" @click="handleDelete">Xóa</div>
+                <div class="combobox__item" @click.stop="handleDelete">Xóa</div>
                 <div class="combobox__item" >Ngưng sử dụng</div>
             </div>
         </div>
@@ -25,8 +25,13 @@ export default {
         }
     },
     methods: {
+        /**
+         * emit hiển thị dialog xóa
+         * Author: DXLOC16/09/2022
+         */
         handleDelete() {
             this.$emit("delete");
+            this.isShow = false;
         }
     }
 };

@@ -4,13 +4,19 @@
     class="m__checkbox-input"
     :class="{ 'checkbox-active': isActive }"
     type="checkbox"
-    @click="clickCheckbox"
+    @click="clickCheckbox()"
+    :value="modelValue"
+    @change="$emit('update:modelValue', $event.target.value)"
   />
 </template>
 <script>
 export default {
   name: "MCheckbox",
   props: {
+    modelValue: {
+        Type: String,
+        default: ""
+    },
     idCheckbox: {
       Type: String,
       default: null,
@@ -22,6 +28,10 @@ export default {
     };
   },
   methods: {
+    /**
+     * Chọn checkbox
+     * Author: DXLOC 20/09/2022
+     */
     clickCheckbox() {
       this.isActive = !this.isActive;
     },

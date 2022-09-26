@@ -1,7 +1,7 @@
 <template lang="">
     <div class="combobox">
-        <MInput :text="'text'" v-model="value" :rules="'required'"/>
-        <button @click="clickShowDepartment">
+        <MInput :text="'text'" v-model="value" :rules="'required'" fieldName="Đơn vị" v-model:errMsg="depError"/>
+        <button @click="clickShowDepartment" tabindex="-1">
             <div class="icon">
             </div>
         </button>
@@ -31,7 +31,6 @@
 </template>
 <script>
 import { HTTP } from '@/api/http-common';
-
 export default {
     name: "MComboboxDepartment",
     props: {
@@ -43,24 +42,31 @@ export default {
                 Type: String,
                 default: "DepartmentName",
             },
-        error: {}
+        error: {},
+        departmentId: {
+            type: [String, Number],
+            default: null
+         },
+         departmentName: {
+            type: [String, Number],
+            default: null
+         },
+         departmentCode: {
+            type: [String, Number],
+            default: null
+         },
+         depError: {
+            Type: String,
+            default: ""
+         }
     },
     created() {
         this.getAllDepartment();
     },
     computed: {
-        //   filterDepartment: {
-        //     get() {
-        //         if(this.value.trim().length > 0) {
-        //             return this.dataDepartment.filter((dep) => dep["DepartmentName"].toLowerCase().includes(this.value.trim()));
-        //          }
-        //               return this.dataDepartment   
-        //     } ,
-        //      set(newval) {
-        //         this.filterDepartment = newval 
-        //      }     
-        // }
+   
     },
+    // check value thay đổi sẽ search
     watch: {
             value(newval, oldval) {
                 if(newval != oldval) {
@@ -75,10 +81,7 @@ export default {
     data() {
         return {
             isShowDepartment: false,
-            dataDepartment: {
-                Type: Array,
-                default: []
-            },
+            dataDepartment: {},
             itemSelected: "",
             value: "",
             cloneData: [],
@@ -86,35 +89,48 @@ export default {
     },
     methods: {
         /**
-         * Lấy ra tất cả thông tin phòng ban
+         * Lấy ra tất cả thông tin đơn vị
          * Author: DXLOC 21/09/2022
          */
         getAllDepartment() {
             try {
                 HTTP.get(`\Departments`)
                 .then((res) => {
-                    console.log(res)
                     this.dataDepartment = res.data;
+                    this.value = this.departmentName;
                     this.cloneData = [...res.data];
                 })    
             } catch (error) {
                 console.log(error);
             }
         },
-        // Chọn hàng  của đơn vị
+        /**
+         * Chọn đơn vị
+         * Author: DXLOC 21/09/2022
+         */
         selectDepartment(department) {
             this.itemSelected = department[this.fieldKey];
             this.value = department[this.fieldName]
             this.isShowDepartment = false; 
+            this.$emit('update:departmentId', department?.DepartmentId);
+            this.$emit('update:departmentCode', department?.DepartmentCode);
+            this.$emit('update:departmentName', department?.DepartmentName);
         },
+        /**
+         * Hiển thị đơn vị
+         * Author: DXLOC 21/09/2022
+         */
         clickShowDepartment() {
             this.dataDepartment = this.cloneData;
             this.isShowDepartment = !this.isShowDepartment;
         },
+        /**
+         * Ấn ra ngoài sẽ tắt 
+         * Author: DXLOC 21/09/2022
+         */
         blurInput() {
             this.isShowDepartment = false;
         },
-      
     }
 }
 </script>

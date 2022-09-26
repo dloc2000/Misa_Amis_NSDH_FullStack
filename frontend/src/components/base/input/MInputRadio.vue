@@ -10,6 +10,7 @@
         type="radio"
         :name="fieldName"
         :value="item.Value"
+        :checked="modelValue == item.Value"
         @change="onChange(item.Value)"
         :id="fieldName + index"
       />
@@ -32,11 +33,30 @@ export default {
       type: [Number, String],
       default: "",
     },
+    cloneGender: {
+      type: Number,
+      default: 0
+    }
+    
+  },
+  mounted() {
+  },
+  data() {
+    return {
+      
+    }
   },
   methods: {
+    /**
+     * Sự kiện onchange update lại value
+     * Author: DXL 20/09/2022
+     */
     onChange(value) {
       this.$emit("update:modelValue", value);
     },
+    // onInput(e) {
+    //   this.$emit("update:modelValue" ,e.target.value)
+    // }
   },
 };
 </script>

@@ -4,6 +4,7 @@ import {router} from './router/router'
 // import './globalComponents'
 import MButton from "@/components/base/button/MButton.vue"
 import MDialog from "@/components/base/dialog/MDialog.vue"
+import MDialogs from "@/components/base/dialog/MDialogs.vue"
 import MInput from "@/components/base/input/MInput.vue"
 import MToast from "@/components/base/toast/MToast.vue"
 import MForm from "@/components/base/form/MForm.vue"
@@ -22,6 +23,7 @@ const emitter = mitt();
 
 app.component("MButton", MButton);
 app.component("MDialog", MDialog);
+app.component("MDialogs", MDialogs);
 app.component("MInput",  MInput);
 app.component("MToast",  MToast);
 app.component("MForm", MForm)

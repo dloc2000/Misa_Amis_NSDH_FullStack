@@ -12,6 +12,8 @@
       <div class="page__content">
         <div class="page__group">
           <div class="page__toolbar">
+            <MButton :text="'Thực hiện hàng loạt'" :classBtn="'btn-bluk'" @click="isShowDeleteBluk = !isShowDeleteBluk"/>
+            <div class="delete-bluk" v-if="isShowDeleteBluk" @click="isShowDialogs = !isShowDialogs">Xóa</div>
             <input
               type="text"
               class="page__toolbar--input input input-placehoder__italic"
@@ -28,7 +30,7 @@
             </div>
           </div>
           <div class="page__table">
-            <m-table :dataSource="employees" @emp-selected="dblShowForm">
+            <m-table :dataSource="employees" @emp-selected="dblShowForm" ref="table">
               <template
               v-slot:customColumn="dataProps"  
               @click="console.log(dataProps)"
@@ -40,11 +42,12 @@
         </div>
         <div class="page__footer">
           <div class="page__total-record">
-            Tổng số:<b> {{ this.employees.length }}</b> bản ghi
+            Tổng số:<b> {{ this.dataPaging.TotalRecord }}</b> bản ghi
           </div>
           <div class="page__pagingation">
-            <MCombobox />
-            <MPaging />
+            <MCombobox ref="combobox"/>
+            <MPaging @on-paging="pagingData" :dataPaging="dataPaging"/>
+            <!-- :pageSize="pageSize" :pageNumber="pageNumber" -->
           </div>
         </div>
       </div>
@@ -61,11 +64,13 @@
     />
     <MLoading v-if="isLoading" />
     <MDialog
-      :dialogSelected="dialogSelected"
       v-if="isShowDialog"
       @hide-dialog="closeDialog"
       @hide-all="closeFormEmployeeAndDialog"
+      :formMode="formMode"
+      @delete-emp="deleteData"
     />
+    <MDialogs v-if="isShowDialogs" @hide-alls="closeDialog" @delete-all="onDeleteBluk" @hide-dialogs="closeFormEmployeeAndDialog"/>
     <MToast v-model="isToast"/>
   </div>
 </template>
@@ -77,7 +82,6 @@
  */
 import EmployeeDetail from "./EmployeeDetail.vue";
 import MLoading from "@/components/base/loading/MLoading.vue";
-import MDialog from "@/components/base/dialog/MDialog.vue";
 import MPaging from "@/components/base/paging/MPaging.vue";
 import MCombobox from "@/components/base/combobox/MCombobox.vue";
 import { HTTP } from "../../api/http-common";
@@ -91,26 +95,90 @@ export default {
   data() {
     return {
       employees: [],
+      employeesDelete: [],
+      isShowDeleteBluk: false,
       isLoading: false,
       isShowForm: false,
       isToast: false,
       isShowDialog: false,
+      isShowDialogs: false,
       employeeSelected: {},
       htmlRow: [],
       formMode: 0,
       nameSearch: null,
       temp:null,
+      pageSize: 20,
+      pageNumber: 1,
+      dataPaging: {
+        TotalRecord: 0,
+        TotalPage: 0,
+        CurrentPage: 0,
+        CurrentPageRecords: 0
+      }
     };
   },
   watch:{
-    isToast(val){
-      console.log(val)
-    }
+   
   },
   mounted() {
-    this.emitter.on("popup-delete", (isShowDialog) => this.isShowDialog = isShowDialog);
+    this.dataPaging.TotalRecord = this.employees.length;
+    this.emitter.on("popup-delete", (emp) => {
+        this.employeeSelected = emp,
+        this.isShowDialog = true,
+        this.formMode = 0;
+    });
   },
   methods: {
+    /**
+     * Thực hiện xóa nhiều bản ghi
+     * Author: DXLOC 24/09/2022
+     */
+     onDeleteBluk() {
+        try {
+          this.employeesDelete = this.$refs.table.getEmployeesDelete();
+          var emps = this.employeesDelete
+            if(emps) {
+              for (let i = 0 ; i < emps.length ; i++) {
+                  var employeeId = emps[i].EmployeeId
+                  HTTP.delete(`/employees/${employeeId}`)
+                  .then((res) => {
+                    if(i == (emps.length -1)) {
+                      this.loadData();
+                      this.isShowDialogs = false;
+                      this.isShowDeleteBluk = false;
+                    }
+                  })
+                }
+              }
+        } catch (error) {
+          console.log(error);
+        }
+     },
+     /**
+     * Phân trang dữ liệu
+     * Author: 23/09/2022
+     */
+     pagingData(pageNumber) {
+        try {
+          if(pageNumber) {
+            this.pageNumber = pageNumber;
+          }
+          this.pageSize = this.$refs.combobox.clickSelectItem();
+          this.isLoading = true
+          HTTP.get(`/employees/filter?pageSize=${this.pageSize}&pageNumber=${this.pageNumber}`)
+          .then((res) => {
+               this.employees = res.data.Data
+               this.dataPaging = {
+                TotalPage: res.data.TotalPage,
+                CurrentPage: res.data.CurrentPage,
+                TotalRecord: res.data.TotalRecord
+               }
+               this.isLoading = false
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    },
     /**
      * hàm format gender trên client
      * @param {obj}  
@@ -159,6 +227,8 @@ export default {
     closeFormEmployeeAndDialog() {
       this.isShowForm = false;
       this.isShowDialog = false;
+      this.isShowDialogs = false;
+      this.isShowDeleteBluk = false;
       // this.loadData();
     },
     /**
@@ -167,6 +237,8 @@ export default {
      */
     closeDialog() {
       this.isShowDialog = false;
+      this.isShowDialogs = false;
+      this.isShowDeleteBluk = false;
     },
     /**
      * Btn xóa employee
@@ -211,9 +283,13 @@ export default {
      */
     deleteData() {
         try {
+          //Loading dữ liệu
             this.isLoading = true;
+            this.isShowDialog = false;
+             // Call API xóa 1 nhân viên = Axios.
             HTTP.delete(`/employees/${this.employeeSelected.EmployeeId}`)
             .then((res) => {
+              this.loadData();
               this.isLoading = false;
               this.isToast = true;
             })
@@ -245,13 +321,45 @@ export default {
     },
   },
 
-  components: { EmployeeDetail, MLoading, MDialog, MPaging, MCombobox },
+  components: { EmployeeDetail, MLoading, MPaging, MCombobox },
 };
 </script>
 
-<style>
+<style scoped>
 .tag-as-parent {
   width: 100%;
   height: 100%;
+}
+.btn-bluk {
+    position: absolute;
+    left: 20px;
+    color: #111;
+    border-radius: 30px;
+    border: 2px solid #3b3c3f;
+    background-color: #fff;
+    font-weight: 700;
+    padding: 0 16px;
+}
+.btn-bluk:hover {
+  background-color: #d2d3d6;
+}
+.delete-bluk {
+    position: absolute;
+    top: 52px;
+    left: 110px;
+    width: 80px;
+    height: 18px;
+    background-color: inherit;
+    padding: 5px 10px;
+    text-align: left;
+    line-height: 18px;
+    z-index: 3;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    transition: all 0.2 ease;
+}
+.delete-bluk:hover {
+  background-color: #e8e9ec;
+  color: #111;
 }
 </style>

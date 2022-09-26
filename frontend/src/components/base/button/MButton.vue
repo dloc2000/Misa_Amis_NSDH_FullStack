@@ -1,5 +1,5 @@
 <template>
-  <button :style="{ width: width + 'px' }" class="button" :class="classBtn">
+  <button :style="{ width: width + 'px' }" class="button" :class="classBtn" v-bind="$attrs">
     {{ text }}
   </button>
 </template>

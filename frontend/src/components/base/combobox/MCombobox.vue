@@ -4,6 +4,7 @@
     :style="{
       width: width ? width + 'px' : '100%',
     }"
+    
   >
     <input type="text" class="input" v-model="valueText" />
     <button @click.stop="clickShowCombobox">
@@ -39,18 +40,22 @@ export default {
         {
           ID: 1,
           Name: "5 bản ghi trên 1 trang",
+          PageSize: 5
         },
         {
           ID: 2,
           Name: "10 bản ghi trên 1 trang",
+          PageSize: 10
         },
         {
           ID: 3,
           Name: "15 bản ghi trên 1 trang",
+          PageSize: 15
         },
         {
           ID: 4,
           Name: "20 bản ghi trên 1 trang",
+          PageSize: 20
         },
       ],
     },
@@ -75,24 +80,26 @@ export default {
     };
   },
   methods: {
-    // click ra item
+    /**
+     * Ẩn hiện combobox
+     * Author: DXLOC 18/09/2022
+     */
     clickShowCombobox() {
       this.isShow = !this.isShow;
       this.$emit("stop-propagation");
     },
-    // Chọn item combobox
+    /**
+     * Chọn item-combobox
+     * Author: DXLOC 18/09/2022
+     */
     clickSelectItem(item) {
       this.itemSelect = item;
       this.valueText = item[this.filedName];
       this.isShow = false;
+      return item.PageSize;
     },
   },
   watch: {
-    // isShow(newVal, oldVal) {
-    //   if (newVal != oldVal) {
-    //     this.isShow = true;
-    //   }
-    // },
   },
 };
 </script>
