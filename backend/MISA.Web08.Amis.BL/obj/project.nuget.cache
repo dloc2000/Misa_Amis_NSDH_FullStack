@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "B65c0QOkhZ+4uoVOkKc5AdfJ3Zyt7/N04kTriS4xT2HY3FbcBRjxtrjcoSN90dkoIeCAC28rAF6XQw3hT9MZkg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\NCPC\\source\\repos\\MISA.Web08.Amis.API\\MISA.Web08.Amis.BL\\MISA.Web08.Amis.BL.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\NCPC\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
+    "C:\\Users\\NCPC\\.nuget\\packages\\mysqlconnector\\2.1.13\\mysqlconnector.2.1.13.nupkg.sha512"
+  ],
+  "logs": []
+}
