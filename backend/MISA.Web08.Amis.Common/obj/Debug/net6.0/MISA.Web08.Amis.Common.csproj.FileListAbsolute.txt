@@ -10,3 +10,17 @@ C:\Users\NCPC\source\repos\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\obj\Debug\
 C:\Users\NCPC\source\repos\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\obj\Debug\net6.0\refint\MISA.Web08.Amis.Common.dll
 C:\Users\NCPC\source\repos\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\obj\Debug\net6.0\MISA.Web08.Amis.Common.pdb
 C:\Users\NCPC\source\repos\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\obj\Debug\net6.0\ref\MISA.Web08.Amis.Common.dll
+C:\Users\Adminstrator\Desktop\Misa_Fresher\backend\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\bin\Debug\net6.0\MISA.Web08.Amis.Common.deps.json
+C:\Users\Adminstrator\Desktop\Misa_Fresher\backend\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\bin\Debug\net6.0\MISA.Web08.Amis.Common.dll
+C:\Users\Adminstrator\Desktop\Misa_Fresher\backend\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\bin\Debug\net6.0\MISA.Web08.Amis.Common.pdb
+C:\Users\Adminstrator\Desktop\Misa_Fresher\backend\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\obj\Debug\net6.0\MISA.Web08.Amis.Common.csproj.AssemblyReference.cache
+C:\Users\Adminstrator\Desktop\Misa_Fresher\backend\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\obj\Debug\net6.0\MISA.Web08.Amis.Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Adminstrator\Desktop\Misa_Fresher\backend\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\obj\Debug\net6.0\MISA.Web08.Amis.Common.AssemblyInfoInputs.cache
+C:\Users\Adminstrator\Desktop\Misa_Fresher\backend\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\obj\Debug\net6.0\MISA.Web08.Amis.Common.AssemblyInfo.cs
+C:\Users\Adminstrator\Desktop\Misa_Fresher\backend\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\obj\Debug\net6.0\MISA.Web08.Amis.Common.csproj.CoreCompileInputs.cache
+C:\Users\Adminstrator\Desktop\Misa_Fresher\backend\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\obj\Debug\net6.0\MISA.Web08.Amis.Common.dll
+C:\Users\Adminstrator\Desktop\Misa_Fresher\backend\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\obj\Debug\net6.0\refint\MISA.Web08.Amis.Common.dll
+C:\Users\Adminstrator\Desktop\Misa_Fresher\backend\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\obj\Debug\net6.0\MISA.Web08.Amis.Common.pdb
+C:\Users\Adminstrator\Desktop\Misa_Fresher\backend\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\obj\Debug\net6.0\ref\MISA.Web08.Amis.Common.dll
+C:\Users\Adminstrator\Desktop\Misa_Fresher\backend\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\obj\Debug\net6.0\MISA.Web08.Amis.Common.Resources.MISAResources.resources
+C:\Users\Adminstrator\Desktop\Misa_Fresher\backend\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\obj\Debug\net6.0\MISA.Web08.Amis.Common.csproj.GenerateResource.cache

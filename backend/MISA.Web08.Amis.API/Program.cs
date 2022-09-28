@@ -1,3 +1,4 @@
+
 using MISA.Web08.Amis.BL;
 using MISA.Web08.Amis.DL;
 
@@ -11,9 +12,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Dependency Injection 
+builder.Services.AddScoped(typeof(IBaseDL<>), typeof(BaseDL<>));
+builder.Services.AddScoped(typeof(IBaseBL<>), typeof(BaseBL<>));
 builder.Services.AddScoped<IEmployeeBL, EmployeeBL>();
 builder.Services.AddScoped<IEmployeeDL, EmployeeDL>();
 
+// Data context
+DataContext.MySQLConnectionString = builder.Configuration.GetConnectionString("MySqlConnectionString");
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,8 +27,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

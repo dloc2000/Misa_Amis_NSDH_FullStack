@@ -40,8 +40,6 @@ namespace MISA.Web08.Amis.API.Controllers
             try
             {
                 // Thực hiện gọi vào hàm ở EmployeeBL
-        
-    
                     var employees = _employeeBL.GetAllEmployees();
 
                     return StatusCode(StatusCodes.Status200OK, employees);
