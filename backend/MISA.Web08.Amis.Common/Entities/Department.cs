@@ -1,24 +1,26 @@
 ﻿namespace MISA.Web08.Amis.Common
 {
-    public class Department
-    {
         /// <summary>
         /// Thông tin chi tiết phòng ban
         /// Created by : DXLOC (18/09/2022)
         /// </summary>
+    public class Department : BaseEntity
+    {
 
-        public Guid DepartmentID { get; set; }
+        /// <summary>
+        /// ID phòng ban
+        /// </summary>
+        public Guid DepartmenId { get; set; }
 
+        /// <summary>
+        /// Mã phòng ban
+        /// </summary>
         public string? DepartmentCode { get; set; }
 
+        /// <summary>
+        /// Tên phòng ban
+        /// </summary>
         public string? DepartmentName { get; set; }
 
-        public DateTime CreateDate { get; set; }
-
-        public string? CreateBy { get; set; }
-
-        public DateTime ModifiedDate { get; set; }
-
-        public string? ModifiedBy { get; set; }
     }
 }

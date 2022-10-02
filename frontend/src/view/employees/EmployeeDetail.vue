@@ -40,7 +40,7 @@
                   firstFocus
                   :rules="'required'"
                   v-model="employee.EmployeeCode"
-                  v-model:errMsg="errors.EmployeeCode"
+                  v-model:errMsg="errors[0]"
                   fieldName="Mã nhân viên"
                 />
               </div>
@@ -52,7 +52,7 @@
                 <MInput
                   :rules="'required'"
                   v-model="employee.FullName"
-                  v-model:errMsg="errors.FullName"
+                  v-model:errMsg="errors[1]"
                   fieldName="Họ và tên"
                 />
               </div>
@@ -63,8 +63,8 @@
                   Đơn vị
                   <b style="color: red">*</b>
                 </div>
-                <MComboboxDepartment v-model:departmentId="employee.DepartmentId" v-model:departmentCode="employee.DepartmentCode"
-                v-model:departmentName="employee.DepartmentName" v-model:depError="errors.DepartmentName"/>
+                <MComboboxDepartment v-model:departmentID="employee.DepartmenId" v-model:departmentCode="employee.DepartmentCode"
+                v-model:departmentName="employee.DepartmentName" v-model:depError="errors[2]"/>
               </div>
             </div>
             <div class="left-3">
@@ -86,7 +86,6 @@
             <div class="right-1">
               <div class="group__input--title">
                 <div class="input__title">Ngày sinh</div>
-                <!-- <input type="date" class="input input-full-width" id="txtBirthday" /> -->
                 <MInput
                   v-model="dateTrungGian"
                   :type="'date'"
@@ -133,7 +132,7 @@
           <div class="grid__down-1">
             <div class="group__input--title">
               <div class="input__title">Địa chỉ</div>
-              <MInput :classInput="['input-full-width']" />
+              <MInput :classInput="['input-full-width']" v-model:value="employee.Address"/>
             </div>
           </div>
           <div class="grid__down-2">
@@ -147,21 +146,21 @@
             </div>
             <div class="group__input--title">
               <div class="input__title">Email</div>
-              <MInput />
+              <MInput v-model:value="employee.Email"/>
             </div>
           </div>
           <div class="grid__down-2 col-3">
             <div class="group__input--title">
               <div class="input__title">Tài khoản ngân hàng</div>
-              <MInput v-model:value="employee.Bank" />
+              <MInput v-model:value="employee.BankAccountNumber" />
             </div>
             <div class="group__input--title">
               <div class="input__title">Tên ngân hàng</div>
-              <MInput />
+              <MInput v-model:value="employee.BankAccountName"/>
             </div>
             <div class="group__input--title">
               <div class="input__title">Chi nhánh</div>
-              <MInput />
+              <MInput v-model:value="employee.BankBranch"/>
             </div>
           </div>
         </div>
@@ -176,7 +175,7 @@
           />
         </div>
         <div class="group__button-right">
-          <MButton :classBtn="'button2 button__save'" :text="'Cất'" />
+          <MButton :classBtn="'button2 button__save'" :text="'Cất'" @click="clickSaveEmployee"/>
           <MButton
             :classBtn="'button1'"
             :text="'Cất và thêm'"
@@ -230,7 +229,7 @@ export default {
         { Name: "Nữ", Value: 2 },
         { Name: "Khác", Value: 0 },
       ],
-      errors: {},
+      errors: [],
       dateTrungGian: "",
       idPos: 0
     };
@@ -259,8 +258,11 @@ export default {
     clickAddEmployee() {
       try {
         // validate dữ liệu
-        if (!this.objectIsEmpty(this.errors)) {
-          this.messageError = this.errors.EmployeeCode;
+        if (!this.errors.every(item => !item)) {
+          // this.messageError = this.errors.EmployeeCode;
+          console.log(this.errors);
+          this.messageError = this.errors.find(item => item);
+
           if (this.messageError) {
             this.isShowPopup = true;
             return;
@@ -282,7 +284,7 @@ export default {
             });
         // Sửa - formMode = 2
         } else if (this.formMode == 2) {
-          HTTP.put(`/employees/${this.employee.EmployeeId}`, this.employee)
+          HTTP.put(`/employees/${this.employee.EmployeeID}`, this.employee)
             .then((res) => {
               this.$emit("hide-form");
               this.$emit("load-data");
@@ -293,6 +295,13 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    /**
+     * Click thêm mới / sửa nhân viên
+     * Author : Locdx 13/09/2022
+     */
+    clickSaveEmployee() {
+        this.clickAddEmployee();
     },
     /**
      * Click ẩn form nhân viên
@@ -337,6 +346,7 @@ export default {
         try {
             HTTP.get(`/Positions`)
             .then((res) => {
+              console.log("pos" , res.data)
                 this.positions = res.data
             })
         } catch (error) {
@@ -351,7 +361,7 @@ export default {
         this.idPos = pos.PositionId
         this.isShowPosition = false;
         this.employee.PositionName = pos.PositionName
-        this.employee.PositionId = pos.PositionId
+        this.employee.PositionID = pos.PositionId
     }
   },
 };

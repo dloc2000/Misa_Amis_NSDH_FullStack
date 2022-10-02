@@ -45,8 +45,8 @@
             Tổng số:<b> {{ this.dataPaging.TotalRecord }}</b> bản ghi
           </div>
           <div class="page__pagingation">
-            <MCombobox ref="combobox"/>
-            <MPaging @on-paging="pagingData" :dataPaging="dataPaging"/>
+            <MCombobox ref="combobox" @pageSizeChange="pageSizeChange"/>
+            <MPaging @onPaging="pagingData" :dataPaging="dataPaging" :pageNumberProp="pageNumber"/>
             <!-- :pageSize="pageSize" :pageNumber="pageNumber" -->
           </div>
         </div>
@@ -94,21 +94,37 @@ export default {
   props: {},
   data() {
     return {
+      // mảng nhân viên
       employees: [],
+      // mảng nhân viên xóa hàng loạt
       employeesDelete: [],
+      // Ẩn/Hiện dialog xóa nhiều
       isShowDeleteBluk: false,
+      // Ẩn/Hiện loading
       isLoading: false,
+      // Ẩn/Hiện form
       isShowForm: false,
+      // Ẩn/Hiện toast
       isToast: false,
+      // Ẩn/Hiện dialog
       isShowDialog: false,
+      // Ẩn/Hiện dialog
       isShowDialogs: false,
+      // 1 nhân viên để sửa/thêm
       employeeSelected: {},
+      // hàng table
       htmlRow: [],
+      // form thêm hay sửa
       formMode: 0,
+      // tìm kiếm theo gì
       nameSearch: null,
+      // biến tạm
       temp:null,
+      // Độ rộng trang
       pageSize: 20,
+      // Trang số ?
       pageNumber: 1,
+      // Dữ liệu paging trả về
       dataPaging: {
         TotalRecord: 0,
         TotalPage: 0,
@@ -121,7 +137,9 @@ export default {
    
   },
   mounted() {
+    // Gán tổng số bản ghi 
     this.dataPaging.TotalRecord = this.employees.length;
+    // Hiện pop-up xóa
     this.emitter.on("popup-delete", (emp) => {
         this.employeeSelected = emp,
         this.isShowDialog = true,
@@ -163,7 +181,7 @@ export default {
           if(pageNumber) {
             this.pageNumber = pageNumber;
           }
-          this.pageSize = this.$refs.combobox.clickSelectItem();
+          // this.pageSize = this.$refs.combobox.clickSelectItem();
           this.isLoading = true
           HTTP.get(`/employees/filter?pageSize=${this.pageSize}&pageNumber=${this.pageNumber}`)
           .then((res) => {
@@ -266,7 +284,7 @@ export default {
       try {
         clearTimeout(this.temp);
         this.temp = setTimeout(() => {
-          HTTP.get(`/employees/filter?employeeFilter=${this.nameSearch}`).then((res) => {
+          HTTP.get(`/employees/filter?pageSize=20&pageNumber=1&keyword=${this.nameSearch}`).then((res) => {
             this.employees = [];
             setTimeout(()=>{
               this.employees = res.data.Data;
@@ -287,7 +305,7 @@ export default {
             this.isLoading = true;
             this.isShowDialog = false;
              // Call API xóa 1 nhân viên = Axios.
-            HTTP.delete(`/employees/${this.employeeSelected.EmployeeId}`)
+            HTTP.delete(`/employees/${this.employeeSelected.EmployeeID}`)
             .then((res) => {
               this.loadData();
               this.isLoading = false;
@@ -319,6 +337,15 @@ export default {
         console.log(error);
       }
     },
+    /**
+     * Lấy số bản ghi mỗi trang từ combobox
+     * Author: locdx 18/09/2022
+     * @param {pageSize} 
+     */
+    pageSizeChange(e) {
+      this.pageSize = e;
+      this.pagingData(1);
+    }
   },
 
   components: { EmployeeDetail, MLoading, MPaging, MCombobox },

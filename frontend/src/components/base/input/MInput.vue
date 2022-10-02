@@ -1,7 +1,16 @@
 <template>
   <!-- <div> -->
-  <input :type="type" :value="modelValue" ref="input" class="input" :class="{ 'input-required': errMsg }"
-    @blur="blurInput(rules)" @input="onInput($event)" @change="onChange($event)" :title="errMsg" />
+  <input
+    :type="type"
+    :value="modelValue"
+    ref="input"
+    class="input"
+    :class="{ 'input-required': errMsg }"
+    @blur="blurInput(rules)"
+    @input="onInput($event)"
+    @change="onChange($event)"
+    :title="errMsg"
+  />
 </template>
 <script>
 import MBaseControlVue from "@/components/MBaseControl.vue";
@@ -51,31 +60,28 @@ export default {
       errorClass: "input-required",
     };
   },
-  created() {
-    
-  },
-  computed: {
-    
-  },
+  created() {},
+  computed: {},
   watch: {
-     /**
+    /**
      * Bắt watch thay đổi dữ liệu trên input
      * Author : DXLoc 20/09/2022
-     * 
+     *
      */
-      modelValue(newval, oldval) {
-        if (this.type == 'date' && newval != oldval) {
-          this.$emit("update:modelValue", newval);
-          // this.sliceString(newval)
-        } 
+    modelValue(newval, oldval) {
+      // Validate lại
+      this.validateControl();
+      if (this.type == "date" && newval != oldval) {
+        this.$emit("update:modelValue", newval);
+        // this.sliceString(newval)
       }
-    
+    },
   },
   mounted() {
-     /**
+    /**
      * Auto focus ô nhập liệu đầu tiên khi mở form
      * Author : DXLoc 20/09/2022
-     * 
+     *
      */
     if (this.firstFocus) {
       this.$refs.input.focus();
@@ -85,7 +91,7 @@ export default {
     /**
      * Validate dữ liệu khi người dùng để trống trường bắt buộc
      * Author : DXLoc 20/09/2022
-     * 
+     *
      */
     validateControl() {
       if (this.rules && this.rules.length > 0) {
@@ -104,6 +110,8 @@ export default {
               } else {
                 this.$emit("update:errMsg", "Không được để trống.");
               }
+            } else {
+              this.$emit("update:errMsg", null);
             }
           } else if (rule == "email") {
             // Email đúng định dạng
@@ -111,40 +119,39 @@ export default {
         });
       }
     },
-     /**
+    /**
      * Blur ra ngoài sẽ chạy validate
      * Author : DXLoc 20/09/2022
-     * 
+     *
      */
     blurInput() {
       this.validateControl();
     },
-     /**
+    /**
      * Binding 2 chiều dữ liệu
      * Author : DXLoc 20/09/2022
-     * 
+     *
      */
     onChange(e) {
       this.$emit("update:modelValue", e.target.value);
     },
-     /**
+    /**
      * Validate khi có dữ liệu sẽ ko còn cảnh báo
      * Author : DXLoc 20/09/2022
-     * 
+     *
      */
     onInput(e) {
       this.$emit("update:errMsg", null);
       this.$emit("update:modelValue", e.target.value);
     },
-     /**
+    /**
      * format date khi đẩy lên database
+     * @param {text} text
      * Author : DXLoc 21/09/2022
-     * 
      */
     sliceString(text) {
-        return text.slice(0,10) + "T00:00:00";
-    }
-   
+      return text.slice(0, 10) + "T00:00:00";
+    },
   },
 };
 </script>

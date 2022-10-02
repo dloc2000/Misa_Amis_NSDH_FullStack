@@ -10,6 +10,7 @@
         'item-pesudo': activeIndex === index,
       }"
       @click="clickSelectedMenu(index)"
+      :title="menuItem.menu"
     >
       <div
         class="navbar__icon m-icon-24"
@@ -96,7 +97,7 @@ export default {
           path: "/thue",
         },
       ],
-      activeIndex: undefined,
+      activeIndex: 1,
       routers: this.$router.options.routes,
       pathDefault: {
         default: "/employees",
@@ -105,7 +106,7 @@ export default {
     };
   },
   created() {
- 
+    
   },
   methods: {
     /**
@@ -120,8 +121,4 @@ export default {
 };
 </script>
 <style>
-  .m__icon-dashboard:focus{
-
-  }
-/* @import url("../../css/layout/navbar.css"); */
 </style>

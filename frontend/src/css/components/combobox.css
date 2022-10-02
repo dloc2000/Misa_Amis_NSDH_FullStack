@@ -66,6 +66,7 @@
     z-index: 99 !important;
     background-color: #fff;
     max-height: 200px;
+    overflow-y: auto;
 }
 
 .combobox__item {

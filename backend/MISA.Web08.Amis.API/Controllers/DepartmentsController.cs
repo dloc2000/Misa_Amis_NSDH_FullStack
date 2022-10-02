@@ -1,22 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MISA.Web08.Amis.BL;
 using MISA.Web08.Amis.Common;
 
 namespace MISA.Web08.Amis.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class DepartmentsController : ControllerBase
+    /// <summary>
+    /// Phòng ban
+    /// </summary>
+    /// CreatedBy : DXLOC (27/09/2022)
+    public class DepartmentsController : BasesController<Department>
     {
-        [HttpGet]
-        [Route("")]
-        public IActionResult GetAllDepartment()
+        private IBaseBL<Department> _baseBL ;
+
+        public DepartmentsController(IBaseBL<Department> baseBL) : base(baseBL)
         {
-            return StatusCode(StatusCodes.Status200OK, new Department
-            {
-                DepartmentID = Guid.NewGuid(),
-                DepartmentName = "Phòng Bảo Vệ",
-                DepartmentCode = "D001"
-            });
+            _baseBL = baseBL;
         }
     }
 }

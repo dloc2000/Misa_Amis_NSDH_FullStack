@@ -73,10 +73,10 @@ export default {
       isShow: false,
       dataSearch: this.data,
       itemSelect: {
-        ID: 1,
-        Name: "5 bản ghi trên 1 trang",
+        ID: 4,
+        Name: "20 bản ghi trên 1 trang",
       },
-      valueText: this.data[0].Name,
+      valueText: this.data[3].Name,
     };
   },
   methods: {
@@ -96,7 +96,7 @@ export default {
       this.itemSelect = item;
       this.valueText = item[this.filedName];
       this.isShow = false;
-      return item.PageSize;
+      this.$emit('pageSizeChange', item.PageSize)
     },
   },
   watch: {

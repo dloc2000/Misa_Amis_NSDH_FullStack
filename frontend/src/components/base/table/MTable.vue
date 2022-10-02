@@ -138,21 +138,21 @@ export default {
         },
         {
           Caption: "Số tài khoản",
-          Field: "EmployeeCode",
+          Field: "BankAccountNumber",
           Width: 150,
           className: "text__align--left",
           type: 1,
         },
         {
           Caption: "Tên ngân hàng",
-          Field: "EmployeeCode",
+          Field: "BankAccountName",
           Width: 250,
           className: "text__align--left",
           type: 1,
         },
         {
           Caption: "Chi nhánh TK ngân hàng",
-          Field: "EmployeeCode",
+          Field: "BankBranch",
           Width: 250,
           className: "text__align--left",
           type: 1,
@@ -203,6 +203,7 @@ export default {
     },
     /**
      * Chọn các ô checkbox
+     * Author: DXLOC 24/09/2022
      */
     onCheckbox(index) {
       this.idActive = index

@@ -61,6 +61,33 @@ namespace MISA.Web08.Amis.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dương Xuân Lộc.
+        /// </summary>
+        public static string Default_CreatedBy_User {
+            get {
+                return ResourceManager.GetString("Default_CreatedBy_User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cao Văn Cường.
+        /// </summary>
+        public static string Default_ModifiedBy_User {
+            get {
+                return ResourceManager.GetString("Default_ModifiedBy_User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something wrong when try to delete this record.
+        /// </summary>
+        public static string DevMsg_DeleteFailed {
+            get {
+                return ResourceManager.GetString("DevMsg_DeleteFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EmployeeCode is existed , please try another code.
         /// </summary>
         public static string DevMsg_DuplicateCode {
@@ -79,11 +106,38 @@ namespace MISA.Web08.Amis.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insert record to databse failed.
+        /// </summary>
+        public static string DevMsg_InsertFailed {
+            get {
+                return ResourceManager.GetString("DevMsg_InsertFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update record to database failed.
+        /// </summary>
+        public static string DevMsg_UpdatedFailed {
+            get {
+                return ResourceManager.GetString("DevMsg_UpdatedFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Some fileds of this request is not accepted.
         /// </summary>
         public static string DevMsg_ValidateFailed {
             get {
                 return ResourceManager.GetString("DevMsg_ValidateFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://openapi.misa.com/error-code/e009.
+        /// </summary>
+        public static string MoreInfo_DeleteFailed {
+            get {
+                return ResourceManager.GetString("MoreInfo_DeleteFailed", resourceCulture);
             }
         }
         
@@ -106,11 +160,38 @@ namespace MISA.Web08.Amis.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://openapi.misa.com/error-code/e007.
+        /// </summary>
+        public static string MoreInfo_InsertFailed {
+            get {
+                return ResourceManager.GetString("MoreInfo_InsertFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://openapi.misa.com/error-code/e008.
+        /// </summary>
+        public static string MoreInfo_UpdatedFailed {
+            get {
+                return ResourceManager.GetString("MoreInfo_UpdatedFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://openapi.misa.com.vn/errorcode/e003.
         /// </summary>
         public static string MoreInfo_ValidateFailed {
             get {
                 return ResourceManager.GetString("MoreInfo_ValidateFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proc_employee_DeleteOne.
+        /// </summary>
+        public static string Proc_DeleteOne {
+            get {
+                return ResourceManager.GetString("Proc_DeleteOne", resourceCulture);
             }
         }
         
@@ -124,11 +205,29 @@ namespace MISA.Web08.Amis.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Proc_employee_DeleteOne.
+        ///   Looks up a localized string similar to Proc_{0}_GetByID.
         /// </summary>
-        public static string ProcDeleteOneEmployee {
+        public static string Proc_GetRecordByID {
             get {
-                return ResourceManager.GetString("ProcDeleteOneEmployee", resourceCulture);
+                return ResourceManager.GetString("Proc_GetRecordByID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proc_{0}_InsertOne.
+        /// </summary>
+        public static string Proc_InsertOne {
+            get {
+                return ResourceManager.GetString("Proc_InsertOne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proc_{0}_UpdateOne.
+        /// </summary>
+        public static string Proc_UpdateOne {
+            get {
+                return ResourceManager.GetString("Proc_UpdateOne", resourceCulture);
             }
         }
         
@@ -151,24 +250,6 @@ namespace MISA.Web08.Amis.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Proc_employee_InsertOne.
-        /// </summary>
-        public static string ProcInsertOneEmployee {
-            get {
-                return ResourceManager.GetString("ProcInsertOneEmployee", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Proc_employee_UpdateOne.
-        /// </summary>
-        public static string ProcUpdateOneEmployee {
-            get {
-                return ResourceManager.GetString("ProcUpdateOneEmployee", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Proc_employee_DuplicateCode.
         /// </summary>
         public static string ProGetDuplicateCode {
@@ -178,11 +259,11 @@ namespace MISA.Web08.Amis.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Proc_employee_GetByID.
+        ///   Looks up a localized string similar to Có lỗi xảy ra khi cố gắng xóa , vui lòng kiểm tra lại.
         /// </summary>
-        public static string ProGetEmployeeByID {
+        public static string UserMsg_DeleteFailed {
             get {
-                return ResourceManager.GetString("ProGetEmployeeByID", resourceCulture);
+                return ResourceManager.GetString("UserMsg_DeleteFailed", resourceCulture);
             }
         }
         
@@ -201,6 +282,24 @@ namespace MISA.Web08.Amis.Common.Resources {
         public static string UserMsg_Exception {
             get {
                 return ResourceManager.GetString("UserMsg_Exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thêm mới thất bại, vui lòng kiểm tra lại.
+        /// </summary>
+        public static string UserMsg_InsertFailed {
+            get {
+                return ResourceManager.GetString("UserMsg_InsertFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sửa thất bại, vui lòng kiểm tra lại.
+        /// </summary>
+        public static string UserMsg_UpdatedFailed {
+            get {
+                return ResourceManager.GetString("UserMsg_UpdatedFailed", resourceCulture);
             }
         }
         

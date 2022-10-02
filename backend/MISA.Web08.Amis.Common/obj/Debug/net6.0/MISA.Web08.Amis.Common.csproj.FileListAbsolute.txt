@@ -24,3 +24,5 @@ C:\Users\Adminstrator\Desktop\Misa_Fresher\backend\MISA.Web08.Amis.API\MISA.Web0
 C:\Users\Adminstrator\Desktop\Misa_Fresher\backend\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\obj\Debug\net6.0\ref\MISA.Web08.Amis.Common.dll
 C:\Users\Adminstrator\Desktop\Misa_Fresher\backend\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\obj\Debug\net6.0\MISA.Web08.Amis.Common.Resources.MISAResources.resources
 C:\Users\Adminstrator\Desktop\Misa_Fresher\backend\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\obj\Debug\net6.0\MISA.Web08.Amis.Common.csproj.GenerateResource.cache
+C:\Users\NCPC\source\repos\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\obj\Debug\net6.0\MISA.Web08.Amis.Common.Resources.MISAResources.resources
+C:\Users\NCPC\source\repos\MISA.Web08.Amis.API\MISA.Web08.Amis.Common\obj\Debug\net6.0\MISA.Web08.Amis.Common.csproj.GenerateResource.cache

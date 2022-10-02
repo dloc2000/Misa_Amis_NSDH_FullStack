@@ -9,13 +9,27 @@ namespace MISA.Web08.Amis.DL
     public interface IBaseDL<T>
     {
 
-        #region GetAll
+        #region Get
         /// <summary>
         /// Lấy danh sách tất cả bản ghi
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Danh sách records</returns>
         /// CreatedBy: DXLOC 28/09/2022
         public IEnumerable<T> GetAllRecords();
+
+        /// <summary>
+        /// Lấy ra bản ghi theo id
+        /// </summary>
+        /// <returns>Bản ghi theo id</returns>
+        /// CreatedBy: DXLOC 28/09/2022
+        public T GetRecordByID(Guid id);
+
+        /// <summary>
+        /// Check trùng mã
+        /// </summary>
+        /// <returns>Bản ghi có mã nhân viên trùng</returns>
+        /// CreatedBy: DXLOC 28/09/2022
+        public T GetDuplicateCode(string recordCode, Guid? id);
         #endregion
 
         #region Insert
@@ -24,7 +38,7 @@ namespace MISA.Web08.Amis.DL
         /// </summary>
         /// <returns></returns>
         /// CreatedBy: DXLOC 28/09/2022
-        public IEnumerable<T> InsertRecord();
+        public Guid InsertRecord(T obj);
         #endregion
 
         #region Delete
@@ -33,7 +47,7 @@ namespace MISA.Web08.Amis.DL
         /// </summary>
         /// <returns></returns>
         /// CreatedBy: DXLOC 28/09/2022
-        public IEnumerable<T> DeleteRecord();
+        public Guid DeleteRecord(Guid id);
         #endregion
 
         #region Update
@@ -42,7 +56,7 @@ namespace MISA.Web08.Amis.DL
         /// </summary>
         /// <returns></returns>
         /// CreatedBy: DXLOC 28/09/2022
-        public IEnumerable<T> UpdateRecord(); 
+        public Guid UpdateRecord(Guid id , T obj);
         #endregion
 
     }

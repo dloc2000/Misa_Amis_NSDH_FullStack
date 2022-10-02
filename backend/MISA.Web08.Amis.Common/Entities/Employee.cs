@@ -9,25 +9,26 @@ namespace MISA.Web08.Amis.Common
     /// </summary>
     /// Ctrl + M + O : đóng comment
     /// Ctril + M + L : mở comment
-    [Table("employee")]
-    public class Employee
+    public class Employee : BaseEntity
     {
         /// <summary>
         /// ID nhân viên
         /// </summary>
-        [Key]
+        [PrimaryKey]
         public Guid EmployeeID { get; set; }
 
         /// <summary>
         /// Mã nhân viên
         /// </summary>
-        /// [Required(ErrorMessage = "e005")
+        [NotEmpty("Mã nhân viên không được phép để trống")]
+        [HaveCode]
         public string? EmployeeCode { get; set; }
 
         /// <summary>
         /// Tên nhân viên
         /// </summary>
-        public string? EmployeeName { get; set; }
+        [NotEmpty("Tên nhân viên không được phép để trống")]
+        public string? FullName { get; set; }
 
         /// <summary>
         /// Số điện thoại
@@ -40,14 +41,19 @@ namespace MISA.Web08.Amis.Common
         public string? Email { get; set; }
 
         /// <summary>
+        /// Địa chỉ nhà
+        /// </summary>
+        public string? Address { get; set; }
+
+        /// <summary>
         /// Giới tính
         /// </summary>
-        public int Gender { get; set; }
+        public Gender Gender { get; set; }
 
         /// <summary>
         /// Ngày sinh
         /// </summary>
-        public DateTime DateOfBirth;
+        public DateTime DateOfBirth { get; set; }
 
         /// <summary>
         /// Số CCCD
@@ -67,12 +73,13 @@ namespace MISA.Web08.Amis.Common
         /// <summary>
         /// ID phòng ban
         /// </summary>
-        public Guid DepartmentID { get; set; }
+        //[NotEmpty("Phòng ban không được phép để trống")]
+        public Guid? DepartmentID { get; set; }
 
         /// <summary>
         /// Mã phòng ban
         /// </summary>
-        public Department? DepartmentCode { get; set; }
+        public string? DepartmentCode { get; set; }
        
         /// <summary>
         /// Tên phòng ban
@@ -82,12 +89,12 @@ namespace MISA.Web08.Amis.Common
         /// <summary>
         /// ID chức vụ
         /// </summary>
-        public Guid PositionID { get; set; }
+        public Guid? PositionID { get; set; }
 
         /// <summary>
         /// Mã chức vụ
         /// </summary>
-        public Position? PositionCode { get; set; }
+        public string? PositionCode { get; set; }
 
         /// <summary>
         /// Tên chức vụ
@@ -110,23 +117,9 @@ namespace MISA.Web08.Amis.Common
         public string? BankAccountNumber { get; set; }
 
         /// <summary>
-        /// Ngày tạo nhân viên
+        /// Chi nhánh ngân hàng
         /// </summary>
-        public DateTime CreateDate { get; set; }
+        public string? BankBranch {get; set; }
 
-        /// <summary>
-        /// Người tạo nhân viên
-        /// </summary>
-        public string? CreateBy { get; set; }
-
-        /// <summary>
-        /// Ngày sửa đổi gần nhất
-        /// </summary>
-        public DateTime ModifiedDate { get; set; }
-
-        /// <summary>
-        /// Người sửa đổi gần nhất
-        /// </summary>
-        public string? ModifiedBy { get; set; }
     }
 }

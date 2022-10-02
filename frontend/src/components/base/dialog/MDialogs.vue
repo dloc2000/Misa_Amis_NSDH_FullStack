@@ -3,7 +3,7 @@
       <div class="dialog__msg-box">
         <div class="msg-content">
           <div class="m__icon-question"></div>
-          <div class="msg__content" style="margin-right: 20px">
+          <div class="msg__content" style="margin: 0 20px;">
              {{text}}
           </div>
         </div>
@@ -63,7 +63,6 @@
        * Author: DXLOC 19/09/2022
        */
       handleSuccess() {
-          
           // this.emitter.on("delete-bluk", (employeesDelete) => {
           //   this.employeesDelete = employeesDelete
           // })

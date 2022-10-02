@@ -27,27 +27,27 @@ var MISAResource = {
     MessageDialog: {
         success: {
             VI: "Thành công",
-            EN:  "success"
+            EN:  "Success"
         },
         error: {
             VI: "Đã xảy ra lỗi vui lòng liên hệ CSKH Misa để được hỗ trợ",
-            EN: ""
+            EN: "An error has occurred, please contact Misa Customer Service for support"
         },
         exists: {
             VI: "Mã nhân viên đã tồn tại trong hệ thống",
-            EN: ""
+            EN: "Employee code already exists in the system"
         },
         confirm: {
             VI: "Dữ liệu đã bị thay đổi bạn có muốn cất không?",
-            EN: ""
+            EN: "The data has been changed do you want to save it?"
         },
         delete: {
             VI: "Bạn có thực sự muốn xóa nhân viên không?",
-            EN: "Bạn có thực sự muốn xóa nhân viên không?"
+            EN: "Do you really want to delete the employee ?"
         },
         deletes: {
             VI: "Bạn có thực sự muốn xóa hàng loạt nhân viên không?",
-            EN: "Bạn có thực sự muốn xóa hàng loạt nhân viên không?"
+            EN: "Do you really want to bulk delete employees?"
         }
     }
 

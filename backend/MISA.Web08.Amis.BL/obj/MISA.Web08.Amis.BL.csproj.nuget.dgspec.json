@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Adminstrator\\Desktop\\Misa_Fresher\\backend\\MISA.Web08.Amis.API\\MISA.Web08.Amis.BL\\MISA.Web08.Amis.BL.csproj": {}
+    "C:\\Users\\NCPC\\source\\repos\\MISA.Web08.Amis.API\\MISA.Web08.Amis.BL\\MISA.Web08.Amis.BL.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Adminstrator\\Desktop\\Misa_Fresher\\backend\\MISA.Web08.Amis.API\\MISA.Web08.Amis.BL\\MISA.Web08.Amis.BL.csproj": {
+    "C:\\Users\\NCPC\\source\\repos\\MISA.Web08.Amis.API\\MISA.Web08.Amis.BL\\MISA.Web08.Amis.BL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Adminstrator\\Desktop\\Misa_Fresher\\backend\\MISA.Web08.Amis.API\\MISA.Web08.Amis.BL\\MISA.Web08.Amis.BL.csproj",
+        "projectUniqueName": "C:\\Users\\NCPC\\source\\repos\\MISA.Web08.Amis.API\\MISA.Web08.Amis.BL\\MISA.Web08.Amis.BL.csproj",
         "projectName": "MISA.Web08.Amis.BL",
-        "projectPath": "C:\\Users\\Adminstrator\\Desktop\\Misa_Fresher\\backend\\MISA.Web08.Amis.API\\MISA.Web08.Amis.BL\\MISA.Web08.Amis.BL.csproj",
-        "packagesPath": "C:\\Users\\Adminstrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Adminstrator\\Desktop\\Misa_Fresher\\backend\\MISA.Web08.Amis.API\\MISA.Web08.Amis.BL\\obj\\",
+        "projectPath": "C:\\Users\\NCPC\\source\\repos\\MISA.Web08.Amis.API\\MISA.Web08.Amis.BL\\MISA.Web08.Amis.BL.csproj",
+        "packagesPath": "C:\\Users\\NCPC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\NCPC\\source\\repos\\MISA.Web08.Amis.API\\MISA.Web08.Amis.BL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Adminstrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\NCPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,11 +28,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Adminstrator\\Desktop\\Misa_Fresher\\backend\\MISA.Web08.Amis.API\\MISA.Web08.Amis.Common\\MISA.Web08.Amis.Common.csproj": {
-                "projectPath": "C:\\Users\\Adminstrator\\Desktop\\Misa_Fresher\\backend\\MISA.Web08.Amis.API\\MISA.Web08.Amis.Common\\MISA.Web08.Amis.Common.csproj"
+              "C:\\Users\\NCPC\\source\\repos\\MISA.Web08.Amis.API\\MISA.Web08.Amis.Common\\MISA.Web08.Amis.Common.csproj": {
+                "projectPath": "C:\\Users\\NCPC\\source\\repos\\MISA.Web08.Amis.API\\MISA.Web08.Amis.Common\\MISA.Web08.Amis.Common.csproj"
               },
-              "C:\\Users\\Adminstrator\\Desktop\\Misa_Fresher\\backend\\MISA.Web08.Amis.API\\MISA.Web08.Amis.DL\\MISA.Web08.Amis.DL.csproj": {
-                "projectPath": "C:\\Users\\Adminstrator\\Desktop\\Misa_Fresher\\backend\\MISA.Web08.Amis.API\\MISA.Web08.Amis.DL\\MISA.Web08.Amis.DL.csproj"
+              "C:\\Users\\NCPC\\source\\repos\\MISA.Web08.Amis.API\\MISA.Web08.Amis.DL\\MISA.Web08.Amis.DL.csproj": {
+                "projectPath": "C:\\Users\\NCPC\\source\\repos\\MISA.Web08.Amis.API\\MISA.Web08.Amis.DL\\MISA.Web08.Amis.DL.csproj"
               }
             }
           }
@@ -62,21 +62,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Adminstrator\\Desktop\\Misa_Fresher\\backend\\MISA.Web08.Amis.API\\MISA.Web08.Amis.Common\\MISA.Web08.Amis.Common.csproj": {
+    "C:\\Users\\NCPC\\source\\repos\\MISA.Web08.Amis.API\\MISA.Web08.Amis.Common\\MISA.Web08.Amis.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Adminstrator\\Desktop\\Misa_Fresher\\backend\\MISA.Web08.Amis.API\\MISA.Web08.Amis.Common\\MISA.Web08.Amis.Common.csproj",
+        "projectUniqueName": "C:\\Users\\NCPC\\source\\repos\\MISA.Web08.Amis.API\\MISA.Web08.Amis.Common\\MISA.Web08.Amis.Common.csproj",
         "projectName": "MISA.Web08.Amis.Common",
-        "projectPath": "C:\\Users\\Adminstrator\\Desktop\\Misa_Fresher\\backend\\MISA.Web08.Amis.API\\MISA.Web08.Amis.Common\\MISA.Web08.Amis.Common.csproj",
-        "packagesPath": "C:\\Users\\Adminstrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Adminstrator\\Desktop\\Misa_Fresher\\backend\\MISA.Web08.Amis.API\\MISA.Web08.Amis.Common\\obj\\",
+        "projectPath": "C:\\Users\\NCPC\\source\\repos\\MISA.Web08.Amis.API\\MISA.Web08.Amis.Common\\MISA.Web08.Amis.Common.csproj",
+        "packagesPath": "C:\\Users\\NCPC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\NCPC\\source\\repos\\MISA.Web08.Amis.API\\MISA.Web08.Amis.Common\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Adminstrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\NCPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -117,21 +117,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Adminstrator\\Desktop\\Misa_Fresher\\backend\\MISA.Web08.Amis.API\\MISA.Web08.Amis.DL\\MISA.Web08.Amis.DL.csproj": {
+    "C:\\Users\\NCPC\\source\\repos\\MISA.Web08.Amis.API\\MISA.Web08.Amis.DL\\MISA.Web08.Amis.DL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Adminstrator\\Desktop\\Misa_Fresher\\backend\\MISA.Web08.Amis.API\\MISA.Web08.Amis.DL\\MISA.Web08.Amis.DL.csproj",
+        "projectUniqueName": "C:\\Users\\NCPC\\source\\repos\\MISA.Web08.Amis.API\\MISA.Web08.Amis.DL\\MISA.Web08.Amis.DL.csproj",
         "projectName": "MISA.Web08.Amis.DL",
-        "projectPath": "C:\\Users\\Adminstrator\\Desktop\\Misa_Fresher\\backend\\MISA.Web08.Amis.API\\MISA.Web08.Amis.DL\\MISA.Web08.Amis.DL.csproj",
-        "packagesPath": "C:\\Users\\Adminstrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Adminstrator\\Desktop\\Misa_Fresher\\backend\\MISA.Web08.Amis.API\\MISA.Web08.Amis.DL\\obj\\",
+        "projectPath": "C:\\Users\\NCPC\\source\\repos\\MISA.Web08.Amis.API\\MISA.Web08.Amis.DL\\MISA.Web08.Amis.DL.csproj",
+        "packagesPath": "C:\\Users\\NCPC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\NCPC\\source\\repos\\MISA.Web08.Amis.API\\MISA.Web08.Amis.DL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Adminstrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\NCPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -145,8 +145,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Adminstrator\\Desktop\\Misa_Fresher\\backend\\MISA.Web08.Amis.API\\MISA.Web08.Amis.Common\\MISA.Web08.Amis.Common.csproj": {
-                "projectPath": "C:\\Users\\Adminstrator\\Desktop\\Misa_Fresher\\backend\\MISA.Web08.Amis.API\\MISA.Web08.Amis.Common\\MISA.Web08.Amis.Common.csproj"
+              "C:\\Users\\NCPC\\source\\repos\\MISA.Web08.Amis.API\\MISA.Web08.Amis.Common\\MISA.Web08.Amis.Common.csproj": {
+                "projectPath": "C:\\Users\\NCPC\\source\\repos\\MISA.Web08.Amis.API\\MISA.Web08.Amis.Common\\MISA.Web08.Amis.Common.csproj"
               }
             }
           }
@@ -164,6 +164,10 @@
             "Dapper": {
               "target": "Package",
               "version": "[2.0.123, )"
+            },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[8.0.30, )"
             },
             "MySqlConnector": {
               "target": "Package",
@@ -186,7 +190,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

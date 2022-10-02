@@ -1,21 +1,36 @@
 ﻿using MISA.Web08.Amis.Common;
-using MISA.Web08.Amis.Common.Enums;
 
-namespace MISA.Web08.Amis.Common.Entities
+namespace MISA.Web08.Amis.Common
 {
-    public class ErrorResult
+    public class ErrorResult : Exception
     {
+        /// <summary>
+        /// Kết quả trả về 1 object lỗi
+        /// </summary>
+        /// CreatedBy: DXLOC (28/09/2022)
        public AmisErrorCode ErrorCode { get; set; }
 
+        /// <summary>
+        /// Thông báo lỗi cho dev
+        /// </summary>
         public string DevMsg { get; set; }
 
+        /// <summary>
+        /// Thông báo lỗi cho người dùng
+        /// </summary>
         public string UserMsg { get; set; }
 
-        public string MoreInfo { get; set; }
+        /// <summary>
+        /// Link viết chi tiết lỗi
+        /// </summary>
+        public dynamic? MoreInfo { get; set; }
 
-        public string TraceId { get; set; }
+        /// <summary>
+        /// ID trace
+        /// </summary>
+        public string? TraceId { get; set; }
 
-        public ErrorResult(AmisErrorCode errorCode, string devMsg, string userMsg, string moreInfo, string traceId)
+        public ErrorResult(AmisErrorCode errorCode, string devMsg, string userMsg, dynamic? moreInfo, string? traceId = null)
         {
             ErrorCode = errorCode;
             DevMsg = devMsg;

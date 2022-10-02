@@ -1,6 +1,6 @@
 <template lang="">
     <div class="combobox">
-        <MInput :text="'text'" v-model="value" :rules="'required'" fieldName="Đơn vị" v-model:errMsg="depError"/>
+        <MInput :text="'text'" v-model="value" :rules="'required'" fieldName="Đơn vị" v-model:errMsg="depErrorClone"/>
         <button @click="clickShowDepartment" tabindex="-1">
             <div class="icon">
             </div>
@@ -9,7 +9,8 @@
             <table class="dropdown-header" cellspacing="0" cellpadding="0">
 
                 <tr class="text__align--left" style="background-color: #f0f0f0;">
-                    <th style="width: 80px;">Mã đơn vị</th>
+                    <th style="width: 80px;">Mã
+                         đơn vị</th>
                     <th>Tên đơn vị</th>
                 </tr>
 
@@ -43,7 +44,7 @@ export default {
                 default: "DepartmentName",
             },
         error: {},
-        departmentId: {
+        departmentID: {
             type: [String, Number],
             default: null
          },
@@ -66,6 +67,9 @@ export default {
     computed: {
    
     },
+    mounted() {
+        this.depErrorClone = this.depError;
+    },  
     // check value thay đổi sẽ search
     watch: {
             value(newval, oldval) {
@@ -76,6 +80,9 @@ export default {
                         this.dataDepartment = this.cloneData;
                     }
                 }
+            },
+            depErrorClone(val) {
+                this.$emit('update:depError',  this.depErrorClone);
             }
     },
     data() {
@@ -85,6 +92,7 @@ export default {
             itemSelected: "",
             value: "",
             cloneData: [],
+            depErrorClone: ""
         }
     },
     methods: {
@@ -112,7 +120,7 @@ export default {
             this.itemSelected = department[this.fieldKey];
             this.value = department[this.fieldName]
             this.isShowDepartment = false; 
-            this.$emit('update:departmentId', department?.DepartmentId);
+            this.$emit('update:departmentID', department?.DepartmenId);
             this.$emit('update:departmentCode', department?.DepartmentCode);
             this.$emit('update:departmentName', department?.DepartmentName);
         },

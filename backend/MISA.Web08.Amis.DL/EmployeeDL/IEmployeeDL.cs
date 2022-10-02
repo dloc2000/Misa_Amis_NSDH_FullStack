@@ -1,53 +1,34 @@
 ﻿using MISA.Web08.Amis.Common;
+using MISA.Web08.Amis.Common.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MISA.Web08.Amis.DL
 {
-    public interface IEmployeeDL
+    public interface IEmployeeDL : IBaseDL<Employee>
     {
-        #region GetAll
+        #region EmployeeCodeMax
         /// <summary>
-        /// Lấy danh sách toàn bộ nhân viên
+        /// lấy ra Nhân viên có mã nhân viên lớn nhất
         /// </summary>
-        /// <returns>Danh sách tất cả nhân viên</returns>
-        /// Created by: DXLOC(27/09/2022)
-        public IEnumerable<Employee> GetAllEmployees();
+        /// <returns>Thông tin chi tiết một nhân viên</returns>
+        public IEnumerable<Employee> GetEmployeeCodeMax();
         #endregion
 
-        #region Insert
+        #region Filter Employee
         /// <summary>
-        /// Thêm mới 1 nhân viên
+        /// Lọc danh sách nhân viên có điều kiện tìm kiếm và phân trang
         /// </summary>
-        /// <param name="employee">Đối tượng nhân viên cần thêm mới</param>
-        /// <returns>Return 1 nếu thêm mới thành công . Return 0 nếu thất bại</returns>
-        /// Created by: DXLOC(27/09/2022)
-        public int InsertEmployee(Employee employee);
+        /// <param name="pageNumber">Số bản ghi trong 1 trang</param>
+        /// <param name="pageSize">Vị trí bản ghi bắt đầu lấy dữ liệu</param>
+        /// <param name="keyword">Tìm kiếm theo ( Mã nhân viên , tên nhân viên,...)</param>
+        /// <returns>Danh sách nhân viên</returns>
+        /// Created by : DXLOC (18/09/2022)
+        public FilterData FilterEmployees(int? pageNumber, int? pageSize, string? keyword);
         #endregion
-
-        #region Update
-        /// <summary>
-        /// Sửa 1 nhân viên
-        /// </summary>
-        /// <param name="employee">Đối tượng nhân viên cần sửa</param>
-        /// <returns></returns>
-        /// Created by: DXLOC(27/09/2022)
-        public List<Employee> UpdateEmployee(Employee employee);
-        #endregion
-
-        #region Delete
-        /// <summary>
-        /// Xóa 1 nhân viên
-        /// </summary>
-        /// <param name="employeeId">Xóa theo ID nhân viên</param>
-        /// <returns>1: Nếu xóa thành công, 0: Nếu xóa thất bại</returns>
-        /// Created by: DXLOC(27/09/2022)
-        public int DeleteEmployee(Employee employeeId); 
-        #endregion
-
-        public Employee GetEmployeeById(int employeeId);
     }
 }

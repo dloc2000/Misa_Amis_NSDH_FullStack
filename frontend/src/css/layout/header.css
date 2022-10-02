@@ -63,7 +63,7 @@
 }
 .user__avatar {
     border-radius: 50%;
-    background-color: #000;
+    background-color: #019160;
     margin-right: 5px;
     cursor: pointer;
 }
@@ -95,8 +95,8 @@
 
 
 .header__sidebar {
-    background-image: url("../../assets/img/Sprites.64af8f61.svg");
-    background-position: -1157px -27px;
+    background-image: url(https://actappg2.misacdn.net/img/Sprites.3e53d152.svg);
+    background-position: -424px -86px;
     margin-right: 10px;
     cursor: pointer;
 }
