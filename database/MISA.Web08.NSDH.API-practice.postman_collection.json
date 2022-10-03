@@ -1,0 +1,218 @@
+{
+	"info": {
+		"_postman_id": "6f1fb174-5db1-4fde-8d0e-c33fa793232f",
+		"name": "MISA.Web08.NSDH.API-practice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23412027"
+	},
+	"item": [
+		{
+			"name": "Employees",
+			"item": [
+				{
+					"name": "API lấy toàn bộ danh sách nhân viên",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44303/api/v1/Employees",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44303",
+							"path": [
+								"api",
+								"v1",
+								"Employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "API lấy thông tin chi tiết 1 nhân viên",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44303/api/v1/Employees/156a4794-7a9b-5c3e-2bcb-66948daf6128",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44303",
+							"path": [
+								"api",
+								"v1",
+								"Employees",
+								"156a4794-7a9b-5c3e-2bcb-66948daf6128"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "API lấy nhân viên có mã lớn nhất",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44303/api/v1/Employees/max-code",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44303",
+							"path": [
+								"api",
+								"v1",
+								"Employees",
+								"max-code"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "API lọc danh sách nhân viên",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "API sửa thông tin nhân viên theo ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"EmployeeID\": \"119af01c-406e-1565-a77d-e8c757976496\",\r\n    \"EmployeeCode\": \"NV0497\",\r\n    \"FullName\": \"Hoàng Tuấn Mạnh \",\r\n    \"PhoneNumber\": null,\r\n    \"Email\": null,\r\n    \"Address\": \"Nam Định\",\r\n    \"Gender\": 2,\r\n    \"DateOfBirth\": \"2001-11-20T00:00:00\",\r\n    \"IdentityNumber\": \"002915514513\",\r\n    \"IdentityDate\": \"2019-01-01T00:00:41\",\r\n    \"IdentityPlace\": \"CA Hà Nội\",\r\n    \"DepartmentID\": \"4577565a-7e3e-493a-74dd-867949feb8b5\",\r\n    \"DepartmentCode\": \"D005\",\r\n    \"DepartmentName\": \"Phòng Chủ tịch\",\r\n    \"PositionID\": \"6d81a322-63f0-7270-6d1a-bb545470e80c\",\r\n    \"PositionCode\": null,\r\n    \"PositionName\": \"Vị trí 007\",\r\n    \"Salary\": 0,\r\n    \"BankAccountName\": \"ACB\",\r\n    \"BankAccountNumber\": \"8651172\",\r\n    \"BankBranch\": \"Chi nhánh Ngoại Giao Đoàn\",\r\n    \"CreatedDate\": \"2022-10-02T22:43:01.9331817+07:00\",\r\n    \"CreatedBy\": \"Dương Xuân Lộc\",\r\n    \"ModifiedDate\": \"2022-10-02T22:43:01.933183+07:00\",\r\n    \"ModifiedBy\": \"Cao Văn Cường\",\r\n    \"DepartmenId\": \"11452b0c-768e-5ff7-0d63-eeb1d8ed8cef\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44303/api/v1/Employees/119af01c-406e-1565-a77d-e8c757976496",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44303",
+							"path": [
+								"api",
+								"v1",
+								"Employees",
+								"119af01c-406e-1565-a77d-e8c757976496"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "API Thêm mới 1 nhân viên",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://localhost:44303/api/v1/Employees",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44303",
+							"path": [
+								"api",
+								"v1",
+								"Employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "API xóa 1 nhân viên theo ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44303/api/v1/Employees/11452b0c-768e-5ff7-0d63-eeb1d8ed8ce6",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44303",
+							"path": [
+								"api",
+								"v1",
+								"Employees",
+								"11452b0c-768e-5ff7-0d63-eeb1d8ed8ce6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Departments",
+			"item": [
+				{
+					"name": "API lấy toàn bộ danh sách phòng ban",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44303/api/v1/Departments",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44303",
+							"path": [
+								"api",
+								"v1",
+								"Departments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Positions",
+			"item": [
+				{
+					"name": "API lấy toàn bộ danh sách chức vụ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44303/api/v1/Positions",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44303",
+							"path": [
+								"api",
+								"v1",
+								"Positions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
