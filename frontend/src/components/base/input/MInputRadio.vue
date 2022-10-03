@@ -60,4 +60,31 @@ export default {
   },
 };
 </script>
-<style lang=""></style>
+<style scoped>
+
+input[type="radio"] {
+  height: 1rem;
+  width: 1rem;
+  margin-right: 0.5rem;
+  margin-top: 0;
+  text-align: center;
+  vertical-align: middle;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0.2rem solid #fff;
+  background-color: #e8e8e8;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #bbbbbb;
+}
+
+input[type="radio"]:focus-visible, input[type="checkbox"]:focus-visible {
+    outline-offset: 0;
+
+}
+
+input[type="radio"]:checked:checked {
+    box-shadow: 0 0 0 1px #2ca01c;
+    background-color: #2ca01c;
+    border-width: 0.2rem;
+}
+</style>

@@ -171,10 +171,6 @@ export default {
     };
   },
   computed: {
-    convertGender() {
-      if (true) {
-      }
-    },
   },
   methods: {
     /**

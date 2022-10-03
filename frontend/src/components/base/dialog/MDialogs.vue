@@ -28,7 +28,6 @@
             >
               Có
             </button>
-            <!-- <Mbutton :class="['button1']" :style="50" :text="'Co'"/> -->
           </div>
         </div>
       </div>
@@ -63,9 +62,6 @@
        * Author: DXLOC 19/09/2022
        */
       handleSuccess() {
-          // this.emitter.on("delete-bluk", (employeesDelete) => {
-          //   this.employeesDelete = employeesDelete
-          // })
           this.$emit("delete-all", this.employeesDelete)
       }
     },

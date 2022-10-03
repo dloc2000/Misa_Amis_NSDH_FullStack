@@ -132,13 +132,13 @@
           <div class="grid__down-1">
             <div class="group__input--title">
               <div class="input__title">Địa chỉ</div>
-              <MInput :classInput="['input-full-width']" v-model:value="employee.Address"/>
+              <MInput :classInput="['input-full-width']" v-model="employee.Address"/>
             </div>
           </div>
           <div class="grid__down-2">
             <div class="group__input--title">
               <div class="input__title">ĐT di động</div>
-              <MInput v-model:value="employee.PhoneNumber" />
+              <MInput v-model="employee.PhoneNumber" />
             </div>
             <div class="group__input--title">
               <div class="input__title">ĐT cố định</div>
@@ -146,7 +146,7 @@
             </div>
             <div class="group__input--title">
               <div class="input__title">Email</div>
-              <MInput v-model:value="employee.Email"/>
+              <MInput v-model="employee.Email"/>
             </div>
           </div>
           <div class="grid__down-2 col-3">
@@ -207,9 +207,11 @@ import common from "@/common/common.js";
 export default {
   name: "EmployeeDetail",
   props: {
+    // ẩn/hiện form
     isShowFormParent: {
       default: false,
     },
+    // nhân vien đc chọn
     employeeSelected: Function,
     formMode: {
       type: Number,
@@ -218,19 +220,29 @@ export default {
   },
   data() {
     return {
-      messageError: "",
+      // mảng nhân viên
       employee: {},
+      // giá trị 
       value: null,
+      // ẩn hiện popup
       isShowPopup: false,
+      // ẩn/hiện chức vụ
       isShowPosition: false,
+      // chức vụ
       positions: {},
+      // danh sách giới tính
       listGender: [
         { Name: "Nam", Value: 1 },
         { Name: "Nữ", Value: 2 },
         { Name: "Khác", Value: 0 },
       ],
+      // tên lỗi
+      messageError: "",
+      //mảng lỗi
       errors: [],
+      // convert ngày
       dateTrungGian: "",
+      // id chức vụ
       idPos: 0
     };
   },
@@ -259,10 +271,9 @@ export default {
       try {
         // validate dữ liệu
         if (!this.errors.every(item => !item)) {
-          // this.messageError = this.errors.EmployeeCode;
-          console.log(this.errors);
+          // lấy ra phần tử lỗi đầu tiên
           this.messageError = this.errors.find(item => item);
-
+          // nếu có lỗi bật popup cảnh báo
           if (this.messageError) {
             this.isShowPopup = true;
             return;

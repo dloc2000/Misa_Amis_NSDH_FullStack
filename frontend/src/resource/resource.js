@@ -46,7 +46,7 @@ var MISAResource = {
             EN: "Do you really want to delete the employee ?"
         },
         deletes: {
-            VI: "Bạn có thực sự muốn xóa hàng loạt nhân viên không?",
+            VI: "Bạn có thực sự muốn xóa những nhân viên này không?",
             EN: "Do you really want to bulk delete employees?"
         }
     }
